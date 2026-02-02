@@ -16,8 +16,7 @@
     <meta name="description" content="Land Development Tax Management Project"/>
     <link rel="icon" href="{{asset('assets/favicon1.jpg')}}"/>
     <meta name="next-size-adjust"/>
-    <script src="{{asset('assets/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js')}}" noModule=""
-            type="b6c094adeb7fd140e353cf6b-text/javascript"></script>
+    <script src="{{asset('assets/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js')}}" noModule="" type="b6c094adeb7fd140e353cf6b-text/javascript"></script>
     <style>
         #nprogress {
             pointer-events: none
@@ -91,13 +90,89 @@
             100% {
                 transform: rotate(360deg)
             }
-        }</style>
+        }
+    </style>
 </head>
 <body class="__className_850483">
 @include('layout.partial.header')
 @section('frontend-content')
 @show
 @include('layout.partial.footer')
+
+<script>
+    const loginBtn = document.getElementById('loginBtn');
+    const loginMenu = document.getElementById('loginMenu');
+
+    // Toggle on button click
+    loginBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent document click
+        loginMenu.classList.toggle('hidden');
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!loginMenu.contains(e.target) && !loginBtn.contains(e.target)) {
+            loginMenu.classList.add('hidden');
+        }
+    });
+</script>
+
+<script>
+    const guardBtn = document.getElementById('guardBtn');
+    const guardMenu = document.getElementById('guardMenu');
+    const guardArrow = document.getElementById('guardArrow');
+
+    // Toggle dropdown
+    guardBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        guardMenu.classList.toggle('hidden');
+        guardArrow.classList.toggle('rotate-180');
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!guardMenu.contains(e.target) && !guardBtn.contains(e.target)) {
+            guardMenu.classList.add('hidden');
+            guardArrow.classList.remove('rotate-180');
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-dropdown-btn]');
+        const dropdowns = document.querySelectorAll('[data-dropdown]');
+
+        // If clicking a dropdown button
+        if (btn) {
+            e.stopPropagation();
+            const wrapper = btn.closest('[data-dropdown]');
+            const menu = wrapper.querySelector('[data-dropdown-menu]');
+            const arrow = wrapper.querySelector('svg');
+
+            const isOpen = !menu.classList.contains('hidden');
+
+            // Close all dropdowns first
+            dropdowns.forEach(drop => {
+                drop.querySelector('[data-dropdown-menu]').classList.add('hidden');
+                drop.querySelector('svg')?.classList.remove('rotate-180');
+            });
+
+            // Toggle current one
+            if (!isOpen) {
+                menu.classList.remove('hidden');
+                arrow?.classList.add('rotate-180');
+            }
+            return;
+        }
+
+        // Click outside → close all
+        dropdowns.forEach(drop => {
+            drop.querySelector('[data-dropdown-menu]').classList.add('hidden');
+            drop.querySelector('svg')?.classList.remove('rotate-180');
+        });
+    });
+</script>
 
 </body>
 </html>

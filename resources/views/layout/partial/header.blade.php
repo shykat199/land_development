@@ -29,32 +29,29 @@
                             <a class="text-semiblack font-medium hover:text-magenta" href="https://ldtax.gov.bd/">হোম</a>
                         </li>
                         <li class="group border-b lg:border-none p-1 lg:p-0">
-                            <div class="inline-block relative">
-                                <button class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
+                            <div class="inline-block relative" data-dropdown>
+                                <button
+                                    class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center"
+                                    data-dropdown-btn>
                                     মন্ত্রণালয়/ বিভাগ
-                                    <svg class="ml-2" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                    <svg class="ml-2 transition-transform duration-300"
+                                         width="15" height="15" viewBox="0 0 15 15" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1.875 5.2125L2.26219 4.6875L12.7566 4.6875L13.125 5.19375L7.84969 10.3125H7.07437L1.875 5.2125Z"
                                               fill="#1E433D"></path>
                                     </svg>
                                 </button>
-                                <div class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute   bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden">
-                                    <ul class="py-2 text-semiblack pb-3 flex flex-col space-y-2 text-14" aria-labelledby="dropdownHoverButton1">
-                                        <li>
-                                            <a href="https://minland.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি মন্ত্রণালয়</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://www.lrb.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি সংস্কার বোর্ড</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://lab.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি আপিল বোর্ড</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://www.dlrs.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি রেকর্ড ও জরিপ অধিদপ্তর</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://www.latc.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি প্রশাসন ও প্রশিক্ষণ কেন্দ্র</a>
-                                        </li>
+
+                                <div
+                                    class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute
+               bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden"
+                                    data-dropdown-menu>
+                                    <ul class="py-2 text-semiblack pb-3 flex flex-col space-y-2 text-14">
+                                        <li><a href="https://minland.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি মন্ত্রণালয়</a></li>
+                                        <li><a href="http://www.lrb.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি সংস্কার বোর্ড</a></li>
+                                        <li><a href="http://lab.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি আপিল বোর্ড</a></li>
+                                        <li><a href="http://www.dlrs.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি রেকর্ড ও জরিপ অধিদপ্তর</a></li>
+                                        <li><a href="http://www.latc.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি প্রশাসন ও প্রশিক্ষণ কেন্দ্র</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -62,30 +59,38 @@
                         <li class="border-b lg:border-none p-1 lg:p-0">
                             <a  class="text-semiblack font-medium hover:text-magenta" href="https://ldtax.gov.bd/vumiseba-form">ভূমিসেবা ফর্ম</a>
                         </li>
-                        <li class="group border-b lg:border-none p-1 lg:p-0">
+                        <li class="border-b lg:border-none p-1 lg:p-0">
                             <div class="inline-block relative">
-                                <button class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
+                                <button id="guardBtn" class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
                                     গার্ড ফাইল
-                                    <svg class="ml-2" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                    <svg id="guardArrow"
+                                         class="ml-2 transition-transform duration-300"
+                                         width="15" height="15" viewBox="0 0 15 15" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1.875 5.2125L2.26219 4.6875L12.7566 4.6875L13.125 5.19375L7.84969 10.3125H7.07437L1.875 5.2125Z"
                                               fill="#1E433D"></path>
                                     </svg>
                                 </button>
-                                <div class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute   bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden">
-                                    <ul class="py-2 text-semiblack pb-3 flex flex-col space-y-2 text-14"
-                                        aria-labelledby="dropdownHoverButton1">
+
+                                <div id="guardMenu"
+                                     class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute
+                   bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden">
+                                    <ul class="py-2 text-semiblack pb-3 flex flex-col space-y-2 text-14">
                                         <li>
-                                            <a class="block py-2 hover:text-magenta mx-4 border-b" href="https://ldtax.gov.bd/ain-and-bidhi">আইন ও বিধি</a>
+                                            <a class="block py-2 hover:text-magenta mx-4 border-b"
+                                               href="https://ldtax.gov.bd/ain-and-bidhi">আইন ও বিধি</a>
                                         </li>
                                         <li>
-                                            <a class="block py-2 hover:text-magenta mx-4 border-b" href="https://ldtax.gov.bd/poripotro">পরিপত্র প্রজ্ঞাপন</a>
+                                            <a class="block py-2 hover:text-magenta mx-4 border-b"
+                                               href="https://ldtax.gov.bd/poripotro">পরিপত্র প্রজ্ঞাপন</a>
                                         </li>
                                         <li>
-                                            <a class="block py-2 hover:text-magenta mx-4 border-b" href="https://ldtax.gov.bd/nitimala">নীতিমালা</a>
+                                            <a class="block py-2 hover:text-magenta mx-4 border-b"
+                                               href="https://ldtax.gov.bd/nitimala">নীতিমালা</a>
                                         </li>
                                         <li>
-                                            <a class="block py-2 hover:text-magenta mx-4 border-b" href="https://ldtax.gov.bd/manual">ম্যানুয়াল</a>
+                                            <a class="block py-2 hover:text-magenta mx-4 border-b"
+                                               href="https://ldtax.gov.bd/manual">ম্যানুয়াল</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -99,25 +104,30 @@
                 <span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span>
             </button>
             <div class="hidden lg:block">
-                <div>
-                    <button class="bg-bottleGreen text-white px-4 rounded-full flex items-center gap-1 text-12 lg:text-16 mb-2">
+                <div class="relative">
+                    <button id="loginBtn" class="bg-bottleGreen text-white px-4 rounded-full flex items-center gap-1 text-12 lg:text-16 mb-2">
                         <span class="text-center">লগইন</span>
                         <span>
                             <svg
-                                class="w-3 h-3 lg:w-4 lg:h-4 fill-current transition-all duration-300 stroke-[4px] "
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path
-                                    d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path></svg>
+                                class="w-3 h-3 lg:w-4 lg:h-4 fill-current transition-all duration-300 stroke-[4px]"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path
+                                    d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                </path>
+                            </svg>
                         </span>
                     </button>
-                    <ul class="bg-white py-5 px-2 flex flex-col gap-2 shadow-lg min-w-[115px] rounded-b-lg absolute max-[1023px]:right-4 text-center text-14">
+
+                    <ul id="loginMenu"
+                        class="hidden bg-white py-5 px-2 flex flex-col gap-2 shadow-lg min-w-[115px] rounded-b-lg absolute max-[1023px]:right-4 text-center text-14">
                         <li class="border border-primary p-1 rounded">
-                            <a class="" target="_blank" href="https://lsg-land-owner.land.gov.bd">নাগরিক/সংস্থা</a>
+                            <a target="_blank" href="https://lsg-land-owner.land.gov.bd">নাগরিক/সংস্থা</a>
                         </li>
                         <li class="border border-primary p-1 rounded">
-                            <a class="" target="_blank" href="https://lsg-land-owner.land.gov.bd/register/bn">রেজিস্ট্রেশন</a>
+                            <a target="_blank" href="https://lsg-land-owner.land.gov.bd/register/bn">রেজিস্ট্রেশন</a>
                         </li>
                         <li class="border border-primary p-1 rounded">
-                            <a target="_blank" href="https://office.ldtax.gov.bd/login"class="cursor-pointer">প্রশাসনিক</a>
+                            <a target="_blank" href="https://office.ldtax.gov.bd/login">প্রশাসনিক</a>
                         </li>
                     </ul>
                 </div>
