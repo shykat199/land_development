@@ -16,10 +16,10 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="alert-triangle"></i><span>Errors</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="errors-503.html">503</a></li>
-                    <li><a class="nav-link" href="errors-403.html">403</a></li>
-                    <li><a class="nav-link" href="errors-404.html">404</a></li>
-                    <li><a class="nav-link" href="errors-500.html">500</a></li>
+                    <li><a class="nav-link" href="">503</a></li>
+                    <li><a class="nav-link" href="">403</a></li>
+                    <li><a class="nav-link" href="">404</a></li>
+                    <li><a class="nav-link" href="">500</a></li>
                 </ul>
             </li>
         </ul>
