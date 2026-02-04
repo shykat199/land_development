@@ -12,6 +12,8 @@
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel='shortcut icon' type='image/x-icon' href='{{asset('assets/img/favicon.ico')}}' />
+    <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet"/>
+
 </head>
 
 <body>
@@ -31,6 +33,7 @@
     </div>
 </div>
 <!-- General JS Scripts -->
+<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/app.min.js')}}"></script>
 <!-- JS Libraies -->
 <script src="{{asset('assets/bundles/apexcharts/apexcharts.min.js')}}"></script>
@@ -40,6 +43,8 @@
 <script src="{{asset('assets/js/scripts.js')}}"></script>
 <!-- Custom JS File -->
 <script src="{{asset('assets/js/custom.js')}}"></script>
+<script src="{{asset('assets/js/sweetalert2.min.js')}}"></script>
+
 </body>
 
 

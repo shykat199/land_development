@@ -13,13 +13,11 @@
                 </a>
             </li>
             <li class="dropdown">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                        data-feather="alert-triangle"></i><span>Errors</span></a>
+                <a href="#" class="menu-toggle nav-link has-dropdown">
+                    <i data-feather="alert-triangle"></i><span>Users</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="">503</a></li>
-                    <li><a class="nav-link" href="">403</a></li>
-                    <li><a class="nav-link" href="">404</a></li>
-                    <li><a class="nav-link" href="">500</a></li>
+                    <li><a class="nav-link" href="{{route('admin.user-list')}}">user List</a></li>
+
                 </ul>
             </li>
         </ul>
