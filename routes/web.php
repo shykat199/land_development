@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', [FrontendController::class, 'index']);
 
@@ -25,18 +26,21 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('user')->name('user.')
-        ->group(function () {
+    Route::prefix('user')->name('user.')->group(function () {
 
             Route::get('/user-list', [AdminUserController::class, 'index'])->name('list');
             Route::get('/create-user', [AdminUserController::class, 'create'])->name('create');
             Route::post('/save-user', [AdminUserController::class, 'save'])->name('store');
+            Route::post('/update-user/{id}', [AdminUserController::class, 'update'])->name('update');
             Route::post('/save-user-info/{id}', [AdminUserController::class, 'saveInfo'])->name('store-info');
             Route::get('/search-user', [AdminUserController::class, 'search'])->name('search');
             Route::get('/user-details/{id}', [AdminUserController::class,'edit'])->name('edit');
             Route::get('/user-info/{id}', [AdminUserController::class,'info'])->name('info');
             Route::get('/delete-user/{id}', [AdminUserController::class,'destroy'])->name('delete');
         });
+
+    Route::get('/site-setting', [SettingController::class, 'index'])->name('site-setting');
+    Route::get('/update-setting', [SettingController::class, 'update'])->name('site-setting');
 
 
 });

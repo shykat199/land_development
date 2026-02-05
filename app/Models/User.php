@@ -31,6 +31,7 @@ class User extends Authenticatable
         'holding_no',
         'khotian_no',
         'owner_share',
+        'invoice'
     ];
 
     /**
@@ -61,6 +62,18 @@ class User extends Authenticatable
         static::creating(static function ($user) {
             if (empty($user->user_code)) {
                 $user->user_code = strtoupper(Str::random(12));
+            }
+        });
+
+        static::creating(static function ($model) {
+
+            if (empty($model->invoice)) {
+
+                $year = date('y');
+                $nextYear = date('y', strtotime('+1 year'));
+                $financialYear = $year . $nextYear;
+                $sequence = str_pad(random_int(1, 9999999999), 10, '0', STR_PAD_LEFT);
+                $model->invoice = $financialYear . '-' . $sequence;
             }
         });
     }

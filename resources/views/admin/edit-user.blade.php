@@ -18,7 +18,7 @@
                         </h4>
 
                         <!-- Form -->
-                        <form method="post" action="{{route('admin.user.store')}}">
+                        <form method="post" action="{{route('admin.user.update',$user->id)}}">
                             @csrf
 
                             <div class="row">

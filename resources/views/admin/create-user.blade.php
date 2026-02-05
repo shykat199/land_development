@@ -21,6 +21,9 @@
                         <form method="post" action="{{route('admin.user.store')}}">
                             @csrf
 
+                            <input type="text" name="fake_username" style="display:none">
+                            <input type="password" name="fake_password" style="display:none">
+
                             <div class="row">
 
                                 <!-- User Name -->
@@ -33,15 +36,27 @@
                                 <!-- Email -->
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label">মালিকের ইমেইল</label>
-                                    <input type="email" placeholder="মালিকের ইমেইল" name="email" class="form-control">
-                                    @error('email') <p class="text-danger">{{$message}}</p> @enderror
+                                    <input
+                                        type="email"
+                                        placeholder="মালিকের ইমেইল"
+                                        name="email"
+                                        class="form-control"
+                                        autocomplete="new-email"
+                                    >
+                                    @error('email') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Password -->
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label">মালিকের Password</label>
-                                    <input type="password" placeholder="মালিকের Password" name="password" class="form-control">
-                                    @error('password') <p class="text-danger">{{$message}}</p> @enderror
+                                    <input
+                                        type="password"
+                                        placeholder="মালিকের Password"
+                                        name="password"
+                                        class="form-control"
+                                        autocomplete="new-password"
+                                    >
+                                    @error('password') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- City Corporation -->

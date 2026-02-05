@@ -124,7 +124,7 @@ class AdminUserController extends Controller
 
         try {
 
-            $user = User::create([
+            User::create([
                 'name'             => $request->name,
                 'email'            => $request->email,
                 'password'         => Hash::make($request->password),
@@ -152,6 +152,61 @@ class AdminUserController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name'             => 'required|string|max:255',
+            'email'            => 'nullable|email',
+            'password'         => 'nullable|string|min:6',
+
+            'city_corporation' => 'nullable|string|max:255',
+            'jl_no'            => 'nullable|string|max:255',
+            'thana'            => 'nullable|string|max:255',
+            'district'         => 'nullable|string|max:255',
+            'holding_no'       => 'nullable|string|max:255',
+            'khotian_no'       => 'nullable|string|max:255',
+            'owner_share'      => 'nullable|string|max:255',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            $user = User::findOrFail($id);
+
+            $data = [
+                'name'             => $request->name,
+                'email'            => $request->email,
+                'city_corporation' => $request->city_corporation,
+                'jl_no'            => $request->jl_no, // fixed key
+                'thana'            => $request->thana,
+                'district'         => $request->district,
+                'holding_no'       => $request->holding_no,
+                'khotian_no'       => $request->khotian_no,
+                'owner_share'      => $request->owner_share,
+            ];
+
+            if ($request->filled('password')) {
+                $data['password'] = Hash::make($request->password);
+            }
+
+            $user->update($data);
+
+            DB::commit();
+
+            toast('ইউজার সফলভাবে আপডেট হয়েছে!', 'success');
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            toast('কিছু একটা সমস্যা হয়েছে!', 'error');
+            return redirect()->back()->withInput();
+        }
+    }
+
+
     public function saveInfo(Request $request,$id)
     {
 
@@ -168,7 +223,6 @@ class AdminUserController extends Controller
                     if (
                         empty($land['dag_no']) &&
                         empty($land['land_class']) &&
-                        empty($land['land_area']) &&
                         empty($land['total_land'])
                     ) {
                         continue;
@@ -178,7 +232,7 @@ class AdminUserController extends Controller
                         'user_id'    => $id,
                         'dag_no'     => $land['dag_no'] ?? null,
                         'land_class' => $land['land_class'] ?? null,
-                        'land_area'  => $land['land_area'] ?? null,
+                        'land_area'  => $land['land_area'] ?? 0,
                         'total_land' => $land['total_land'] ?? null,
                     ]);
                 }
