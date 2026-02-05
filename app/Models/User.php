@@ -31,7 +31,8 @@ class User extends Authenticatable
         'holding_no',
         'khotian_no',
         'owner_share',
-        'invoice'
+        'invoice',
+        'user_url'
     ];
 
     /**

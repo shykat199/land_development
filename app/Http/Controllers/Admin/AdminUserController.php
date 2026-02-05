@@ -52,6 +52,7 @@ class AdminUserController extends Controller
                     'edit_user_url' => route('admin.user.edit', $u->id),
                     'user_info_url' => route('admin.user.info', $u->id),
                     'delete_url' => route('admin.user.delete', $u->id),
+                    'user_dakhila' => route('user.dakhila', $u->user_code),
                 ];
             });
 
@@ -331,5 +332,12 @@ class AdminUserController extends Controller
             toast('Failed to delete university: ' . $e->getMessage(), 'error');
             return redirect()->back();
         }
+    }
+
+    public function print($token)
+    {
+        $user = User::with(['userLandInfo', 'userRevenueInfo'])->where('user_code', $token)->firstOrFail();
+
+        return view('admin.user-dakhila', compact('user'));
     }
 }

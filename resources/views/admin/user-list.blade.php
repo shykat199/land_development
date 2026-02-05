@@ -410,6 +410,7 @@
                                 <td><span class="badge ${badgeColor} text-white">${userRole}</span></td>
                                 <td>${u.created_at}</td>
                                 <td>
+                                    <a href="${u.user_dakhila}" class="btn btn-sm btn-warning" title="User Dakhila"><i class="fa fa-globe"></i></a>
                                     <a href="${u.user_info_url}" class="btn btn-sm btn-primary" title="User Info"><i class="fa fa-folder"></i></a>
                                     <a href="${u.edit_user_url}" class="btn btn-sm btn-warning" title="User Edit"><i class="fa fa-pen"></i></a>
                                     <a href="javascript:void(0);" onclick="showSwal('passing-parameter-execute-cancel','${u.delete_url}}')" class="btn btn-sm btn-danger" title="Delete User"><i class="fa fa-trash"></i></a>

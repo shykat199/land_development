@@ -8,15 +8,16 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\SettingController;
 
 Route::get('/', [FrontendController::class, 'index']);
+//Route::get('/ldtax-holdings/individual-rashid-print-offline/{token}', [FrontendController::class, 'print'])->name('dakhila');
+//Route::get('/user/dakhila/{user_code}', [FrontendController::class, 'dakhila'])->name('user.dakhila');
+
+// Dakhila print page (PUBLIC / PRINT)
+Route::get('/user/dakhila/{user_code}', [FrontendController::class, 'dakhila'])->name('user.dakhila');
 
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])
-    ->middleware('guest')
-    ->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest')->name('login');
 
-Route::post('/login', [AuthController::class, 'login'])
-    ->middleware('guest')
-    ->name('login.submit');
+Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('login.submit');
 
 
 
