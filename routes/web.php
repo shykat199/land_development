@@ -40,7 +40,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         });
 
     Route::get('/site-setting', [SettingController::class, 'index'])->name('site-setting');
-    Route::get('/update-setting', [SettingController::class, 'update'])->name('site-setting');
+    Route::post('/update-setting', [SettingController::class, 'update'])->name('update-site-setting');
 
 
 });

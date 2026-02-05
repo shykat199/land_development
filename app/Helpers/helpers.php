@@ -16,3 +16,14 @@ function getSettingsData($input = null)
 
     return $data;
 }
+
+function getSiteSettingsData($settingArray, $level)
+{
+
+    foreach ($settingArray as $key => $item) {
+        if ($key == $level) {
+            return $item;
+        }
+    }
+
+}

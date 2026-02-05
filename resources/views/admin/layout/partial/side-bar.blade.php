@@ -26,6 +26,13 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="dropdown {{request()->routeIs('admin.site-setting') ? 'active' : '' }}">
+                <a href="{{route('admin.site-setting')}}" class="nav-link">
+                    <i data-feather="settings"></i>
+                    <span>Setting</span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>
