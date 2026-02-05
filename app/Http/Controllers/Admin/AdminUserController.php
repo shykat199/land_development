@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\User;
+use App\Models\UserLandInformation;
+use App\Models\UserRevenueInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -46,9 +48,9 @@ class AdminUserController extends Controller
                     'role' => $u->role,
                     'created_at' => $u->created_at->format('d M Y'),
 
-                    'edit_user_url' => route('admin.user-details', $u->id),
-                    'user_info_url' => route('admin.user-info', $u->id),
-                    'delete_url' => route('admin.delete-user', $u->id),
+                    'edit_user_url' => route('admin.user.edit', $u->id),
+                    'user_info_url' => route('admin.user.info', $u->id),
+                    'delete_url' => route('admin.user.delete', $u->id),
                 ];
             });
 
@@ -146,6 +148,88 @@ class AdminUserController extends Controller
             DB::rollBack();
 
             toast('কিছু একটা সমস্যা হয়েছে!', 'error');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function saveInfo(Request $request,$id)
+    {
+
+        DB::beginTransaction();
+
+        try {
+
+            if ($request->has('land')) {
+
+                UserLandInformation::where('user_id', $id)->delete();
+
+                foreach ($request->land as $land) {
+
+                    if (
+                        empty($land['dag_no']) &&
+                        empty($land['land_class']) &&
+                        empty($land['land_area']) &&
+                        empty($land['total_land'])
+                    ) {
+                        continue;
+                    }
+
+                    UserLandInformation::create([
+                        'user_id'    => $id,
+                        'dag_no'     => $land['dag_no'] ?? null,
+                        'land_class' => $land['land_class'] ?? null,
+                        'land_area'  => $land['land_area'] ?? null,
+                        'total_land' => $land['total_land'] ?? null,
+                    ]);
+                }
+            }
+
+            if ($request->has('revenue')) {
+
+                UserRevenueInformation::where('user_id', $id)->delete();
+
+                foreach ($request->revenue as $revenue) {
+
+                    if (
+                        empty($revenue['previous_3_years_arrears']) &&
+                        empty($revenue['arrears_of_last_3_years']) &&
+                        empty($revenue['current_year_demand_and_surcharge']) &&
+                        empty($revenue['total_demand'])
+                    ) {
+                        continue;
+                    }
+
+                    UserRevenueInformation::create([
+                        'user_id' => $id,
+
+                        'previous_3_years_arrears' => $revenue['previous_3_years_arrears'] ?? '0',
+
+                        'arrears_of_last_3_years' => $revenue['arrears_of_last_3_years'] ?? '0',
+
+                        'current_year_demand_and_surcharge' => $revenue['current_year_demand_and_surcharge'] ?? '0',
+
+                        'total_demand' => $revenue['total_demand'] ?? '0',
+
+                        'total_arrear' => $revenue['total_arrear'] ?? '0',
+
+                        'total_collection' => $revenue['total_collection'] ?? '0',
+
+                        'total_balance' => $revenue['total_balance'] ?? '0',
+
+                        'remarks' => $revenue['remarks'] ?? null,
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            toast('ইউজার সকল তথ্য সফলভাবে সংরক্ষণ হয়েছে!', 'success');
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            toast('কিছু একটা সমস্যা হয়েছে! আবার চেষ্টা করুন।', 'error');
             return redirect()->back()->withInput();
         }
     }

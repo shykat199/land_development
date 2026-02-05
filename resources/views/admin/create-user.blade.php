@@ -18,7 +18,7 @@
                         </h4>
 
                         <!-- Form -->
-                        <form method="post" action="{{route('admin.save-user')}}">
+                        <form method="post" action="{{route('admin.user.store')}}">
                             @csrf
 
                             <div class="row">
@@ -97,7 +97,7 @@
 
 
                             <button type="submit" class="btn btn-primary w-100">
-                                Submit
+                                Submit <i class="fa fa-save"></i>
                             </button>
                         </form>
 

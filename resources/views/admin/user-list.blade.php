@@ -252,7 +252,7 @@
     <nav class="page-breadcrumb d-flex justify-content-between align-items-center mb-2">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="{{route('admin.user-list')}}">University</a>
+                <a href="{{route('admin.user.list')}}">University</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">University list</li>
         </ol>
@@ -379,7 +379,7 @@
                 updateUrl(filters);
 
                 $.ajax({
-                    url: "{{ route('admin.user-list') }}",
+                    url: "{{ route('admin.user.list') }}",
                     type: "GET",
                     data: filters,
                     dataType: "json",

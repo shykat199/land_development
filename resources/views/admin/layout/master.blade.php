@@ -17,6 +17,12 @@
 
     @stack('admin.style')
 
+    <style>
+        .active-option{
+            color:#6777ef !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -32,7 +38,7 @@
             @section('admin-content')
             @show
         </div>
-        @include('admin.layout.partial.footer')
+{{--        @include('admin.layout.partial.footer')--}}
     </div>
 </div>
 <!-- General JS Scripts -->
