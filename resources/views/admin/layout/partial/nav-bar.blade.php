@@ -15,7 +15,7 @@
                 <span class="d-sm-none d-lg-inline-block"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-                <div class="dropdown-title">Hello Sarah Smith</div>
+                <div class="dropdown-title">Hello {{auth()->user()->name}}</div>
 {{--                <a href="profile.html" class="dropdown-item has-icon"> --}}
 {{--                    <i class="farfa-user"></i> Profile--}}
 {{--                </a> --}}

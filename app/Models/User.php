@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'user_code',
         'password',
         'role',
         'city_corporation',
@@ -52,5 +54,24 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected static function booted()
+    {
+        static::creating(static function ($user) {
+            if (empty($user->user_code)) {
+                $user->user_code = strtoupper(Str::random(12));
+            }
+        });
+    }
+
+    public function userLandInfo()
+    {
+        return $this->hasmany(UserLandInformation::class,'user_id','id');
+    }
+
+    public function userRevenueInfo()
+    {
+        return $this->hasmany(UserRevenueInformation::class,'user_id','id');
     }
 }

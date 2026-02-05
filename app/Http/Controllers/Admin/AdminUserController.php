@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AdminUserController extends Controller
@@ -16,7 +17,7 @@ class AdminUserController extends Controller
         if ($request->ajax()) {
             $perPage = (int) $request->get('per_page', 10);
 
-            $query = User::query();
+            $query = User::query()->where('role','!=',ADMIN_ROLE);
 
             if ($search = $request->get('search')) {
                 $query->where('name', 'like', "%{$search}%")
@@ -39,12 +40,14 @@ class AdminUserController extends Controller
             $data = $universities->map(function ($u) {
                 return [
                     'id' => $u->id,
+                    'user_code' => $u->user_code,
                     'name' => $u->name,
-                    'role' => $u->role,
                     'email' => $u->email,
+                    'role' => $u->role,
                     'created_at' => $u->created_at->format('d M Y'),
 
-                    'edit_url' => route('admin.user-details', $u->id),
+                    'edit_user_url' => route('admin.user-details', $u->id),
+                    'user_info_url' => route('admin.user-info', $u->id),
                     'delete_url' => route('admin.delete-user', $u->id),
                 ];
             });
@@ -58,39 +61,6 @@ class AdminUserController extends Controller
         }
 
         return view('admin.user-list');
-    }
-
-    public function providerList(Request $request)
-    {
-        if ($request->ajax()) {
-
-            $data = Provider::orderBy('id', 'desc');
-            return DataTables::of($data)
-                ->addColumn('action', function ($row) {
-                    $deleteUrl = route('admin.delete-provider', $row->id);
-
-                    $actions = '<div class="d-flex align-items-center gap-2">';
-                    $actions .= ' <a href="javascript:void(0)"
-                                   class="editProviderBtn"
-                                   data-id="'.$row->id.'"
-                                   data-name="'.$row->name.'"
-                                   data-status="'.$row->status.'">
-                                    <i class="fa-regular fa-pen-to-square fa-2x text-warning"></i>
-                                </a>';
-
-                    $actions .= '<a href="javascript:void(0);" onclick="showSwal(\'passing-parameter-execute-cancel\', \'' . e($deleteUrl) . '\')">';
-                    $actions .= '<i class="fa-solid fa-trash fa-2x text-danger" aria-hidden="true"></i>';
-                    $actions .= '</a>';
-
-                    $actions .= '</div>';
-
-                    return $actions;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('admin.university.provider');
     }
 
     public function search(Request $request)
@@ -115,6 +85,70 @@ class AdminUserController extends Controller
         );
     }
 
+    public function create()
+    {
+        return view('admin.create-user');
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('admin.edit-user',compact('user'));
+    }
+
+    public function info($id)
+    {
+        $user = User::with(['userLandInfo','userRevenueInfo'])->find($id);
+        return view('admin.user-info',compact('user'));
+    }
+
+    public function save(Request $request)
+    {
+        $request->validate([
+            'name'             => 'required|string|max:255',
+            'email'            => 'nullable|email|unique:users,email',
+            'password'         => 'nullable|string|min:6',
+
+            'city_corporation' => 'nullable|string|max:255',
+            'jl_no'            => 'nullable|string|max:255',
+            'thana'            => 'nullable|string|max:255',
+            'district'         => 'nullable|string|max:255',
+            'holding_no'       => 'nullable|string|max:255',
+            'khotian_no'       => 'nullable|string|max:255',
+            'owner_share'      => 'nullable|string|max:255',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            $user = User::create([
+                'name'             => $request->name,
+                'email'            => $request->email,
+                'password'         => Hash::make($request->password),
+                'city_corporation' => $request->city_corporation,
+                'jln'            => $request->jl_no,
+                'role'            => USER_ROLE,
+                'thana'            => $request->thana,
+                'district'         => $request->district,
+                'holding_no'       => $request->holding_no,
+                'khotian_no'       => $request->khotian_no,
+                'owner_share'      => $request->owner_share,
+            ]);
+
+            DB::commit();
+
+            toast('ইউজার সফলভাবে তৈরি হয়েছে!', 'success');
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            toast('কিছু একটা সমস্যা হয়েছে!', 'error');
+            return redirect()->back()->withInput();
+        }
+    }
 
     public function destroy($id)
     {

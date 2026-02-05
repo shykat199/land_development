@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('title','University')
-@push('style')
+@push('admin.style')
     <style>
 
         .filter-section {
@@ -245,7 +245,6 @@
         }
     </style>
 
-
 @endpush
 
 @section('admin-content')
@@ -277,66 +276,20 @@
 
         <!-- Dropdown Filters -->
         <div class="filters-grid">
-            <div class="filter-group">
-                <label for="countryFilter">Country</label>
-
-                <select class="form-select" id="country_id" name="country">
-
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="countryFilter">City</label>
-
-                <select class="form-select" id="city_id" name="city">
-
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="typeFilter">University Type</label>
-                <select id="university_type" class="form-control">
-                    <option value="">Select University Type</option>
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                </select>
-            </div>
 
             <div class="filter-group">
                 <label for="rankingFilter">Select Order</label>
                 <select id="university_order" class="form-control">
-                    <option value="">Select University Order</option>
+                    <option value="">Select Name Order</option>
                     <option value="ace">A to Z</option>
                     <option value="dec">Z to A</option>
-                    <option value="est_asc">Established Year: Oldest First</option>
-                    <option value="est_desc">Established Year: Newest First</option>
-                    {{--                    <option value="students_asc">Students: Fewest First</option>--}}
-                    {{--                    <option value="students_desc">Students: Most First</option>--}}
-                    <option value="country_asc">Country: A to Z</option>
-                    <option value="country_desc">Country: Z to A</option>
-                    <option value="city_asc">City: A to Z</option>
-                    <option value="city_desc">City: Z to A</option>
                 </select>
             </div>
 
-            <div class="filter-group">
-                <label for="statusFilter">University Status</label>
-                <select id="university_status" class="form-control">
-                    <option value="">Select Status</option>
-                    <option value="all">All</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="popular">Popular</option>
-                    <option value="featured">Featured</option>
-                </select>
-            </div>
         </div>
 
         <div class="filter-actions mt-3 d-flex justify-content-end gap-2">
 
-            <button id="exportData" class="btn btn-success px-4">
-                <i class="fa fa-download me-1"></i> Export Data
-            </button>
             <button id="searchBtn" class="btn btn-primary px-4">
                 <i class="fa fa-search me-1"></i> Search
             </button>
@@ -354,25 +307,16 @@
     <div class="table-container">
         <div class="table-wrapper position-relative">
             <!-- Loader -->
-            <div id="tableLoader" class="d-flex justify-content-center align-items-center"
-                 style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.7); z-index:10;">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
+
 
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>#University Id</th>
-                    <th>University Name</th>
-                    <th>University Type</th>
-                    <th>University Status</th>
-                    <th>Featured University</th>
-                    <th>Popular University</th>
-                    <th>Country</th>
-                    <th>City</th>
-                    {{--                    <th>Established</th>--}}
+                    <th>#User Id</th>
+                    <th>User Code</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>User Role</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </tr>
@@ -395,7 +339,7 @@
 
 @endsection
 
-@push('custom-scripts')
+@push('admin.script')
     <script>
         $(document).ready(function () {
             const perPage = 10;
@@ -446,42 +390,31 @@
                         if (response.data && response.data.length > 0) {
                             response.data.forEach(function (u) {
                                 const badgeColor =
-                                    u.type === 'Private'
+                                    u.role === 1
                                         ? 'bg-success'
-                                        : u.type === 'Public'
+                                        : u.role === 2
                                             ? 'bg-primary'
                                             : 'bg-secondary';
 
+                                const userRole =
+                                    u.role === 1
+                                        ? 'Admin'
+                                        : u.role === 2
+                                            ? 'User'
+                                            : 'Unknown';
+
                                 const row = `
                                 <tr>
-                                <td>${u.university_id}</td>
-                                <td>${u.name} <img class="w-30px h-30px ms-2 rounded-circle" src="${u.logo}" alt="profile"></td>
-                                <td><span class="badge ${badgeColor}">${u.type}</span></td>
-                                <td>
-                                    <label class="switch">
-                                        <input type="checkbox" class="status-toggle" data-url="${u.status_update_url}" ${u.status == 1 ? 'checked' : ''}>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                        <input type="checkbox" class="featured-toggle" data-url="${u.featured_update_url}" ${u.featured == 1 ? 'checked' : ''}>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                        <input type="checkbox" class="popular-toggle" data-url="${u.popular_update_url}" ${u.popular == 1 ? 'checked' : ''}>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <td>${u.country}</td>
-                                <td>${u.city}</td>
+                                <td>${u.id}</td>
+                                <td>${u.user_code}</td>
+                                <td>${u.name}</td>
+                                <td>${u.email}</td>
+                                <td><span class="badge ${badgeColor} text-white">${userRole}</span></td>
                                 <td>${u.created_at}</td>
                                 <td>
-                                    <a href="${u.details_url}" class="btn btn-sm btn-primary" target="_blank" title="University Details"><i class="fa fa-globe"></i></a>
-                                    <a href="${u.edit_url}" class="btn btn-sm btn-warning" title="University Edit"><i class="fa fa-pen"></i></a>
-                                    <a href="javascript:void(0);" onclick="showSwal('passing-parameter-execute-cancel','${u.delete_url}}')" class="btn btn-sm btn-danger" title="Delete University"><i class="fa fa-trash"></i></a>
+                                    <a href="${u.user_info_url}" class="btn btn-sm btn-primary" title="User Info"><i class="fa fa-folder"></i></a>
+                                    <a href="${u.edit_user_url}" class="btn btn-sm btn-warning" title="User Edit"><i class="fa fa-pen"></i></a>
+                                    <a href="javascript:void(0);" onclick="showSwal('passing-parameter-execute-cancel','${u.delete_url}}')" class="btn btn-sm btn-danger" title="Delete User"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>`;
                                 tableBody.append(row);
@@ -714,59 +647,6 @@
                 });
             });
 
-        });
-    </script>
-
-    <script>
-
-        $(document).ready(function () {
-            $('#country_id').select2({
-                placeholder: "Search country...",
-                allowClear: true,
-                width: '100%',
-                dropdownParent: $('#country_id').parent(),
-                ajax: {
-                    url: "{{ route('admin.search-user') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {search: params.term};
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data.map(function (item) {
-                                return {
-                                    id: item.id,
-                                    text: item.name,
-                                    flag: item.flag_url
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                },
-                templateResult: function (data) {
-                    if (!data.id) {
-                        return data.text;
-                    }
-                    var flag = data.flag
-                        ? `<img src="${data.flag}" style="width:20px; height:14px; object-fit:cover; margin-right:6px;">`
-                        : '';
-                    return $(`<span>${flag}${data.text}</span>`);
-                },
-                templateSelection: function (data) {
-                    if (!data.id) {
-                        return data.text;
-                    }
-                    var flag = data.flag
-                        ? `<img src="${data.flag}" style="width:20px; height:14px; object-fit:cover; margin-right:6px;">`
-                        : '';
-                    return $(`<span>${flag}${data.text}</span>`);
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
         });
     </script>
 

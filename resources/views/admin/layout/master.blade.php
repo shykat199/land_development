@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel='shortcut icon' type='image/x-icon' href='{{asset('assets/img/favicon.ico')}}' />
     <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet"/>
+    <link href="{{ asset('assets/fontawesome7.1.0/css/all.css') }}" rel="stylesheet"/>
+
+    @stack('admin.style')
 
 </head>
 
@@ -44,7 +47,8 @@
 <!-- Custom JS File -->
 <script src="{{asset('assets/js/custom.js')}}"></script>
 <script src="{{asset('assets/js/sweetalert2.min.js')}}"></script>
-
+<script src="{{ asset('assets/fontawesome7.1.0/js/all.js') }}"></script>
+@stack('admin.script')
 </body>
 
 
