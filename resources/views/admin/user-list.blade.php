@@ -257,11 +257,9 @@
             <li class="breadcrumb-item active" aria-current="page">University list</li>
         </ol>
 
-        @can('admin.create-country')
-            <a href="" class="btn btn-primary">
-                + Create New University
-            </a>
-        @endcan
+        <a href="{{route('admin.user.create')}}" class="btn btn-primary">
+            + Create New User
+        </a>
     </nav>
 
     <!-- Filter Section -->
@@ -271,7 +269,7 @@
             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search universities by name or university id...">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search user by name or user code ...">
         </div>
 
         <!-- Dropdown Filters -->

@@ -23,15 +23,16 @@ class AdminUserController extends Controller
 
             if ($search = $request->get('search')) {
                 $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('university_id', 'like', "%{$search}%");
+                    ->orWhere('invoice', 'like', "%{$search}%")
+                    ->orWhere('user_code', 'like', "%{$search}%");
             }
 
             switch ($request->get('order')) {
                 case 'ace':
-                    $query->orderBy('name');
+                    $query->orderBy('id');
                     break;
                 case 'dec':
-                    $query->orderBy('name', 'desc');
+                    $query->orderBy('id', 'desc');
                     break;
                 default:
                     $query->orderBy('id', 'desc');
