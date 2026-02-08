@@ -1,5 +1,5 @@
 <div class="2xl:container 2xl:mx-auto">
-    <div class="h-[28px] w-full bg-gradient-to-r from-white to-white via-bottleGreen mb-7">
+    <div class="h-[28px] w-full bg-gradient-to-r from-white to-white via-bottleGreen mb-5">
 
     </div>
     <div class="bg-[#E4FFE2]">

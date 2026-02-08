@@ -92,6 +92,7 @@
             }
         }
     </style>
+    @stack('custom.style')
 </head>
 <body class="__className_850483">
 @include('layout.partial.header')

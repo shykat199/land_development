@@ -25,6 +25,6 @@ class FrontendController extends Controller
             ->firstOrFail();
 
         // IMPORTANT: return a clean print view
-        return view('dakhila-print', compact('user'));
+        return view('index', compact('user'));
     }
 }
