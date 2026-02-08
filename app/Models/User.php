@@ -62,7 +62,11 @@ class User extends Authenticatable
     {
         static::creating(static function ($user) {
             if (empty($user->user_code)) {
-                $user->user_code = strtoupper(Str::random(12));
+                do {
+                    $code = strtoupper(Str::random(32));
+                } while (self::where('user_code', $code)->exists());
+
+                $user->user_code = $code;
             }
         });
 

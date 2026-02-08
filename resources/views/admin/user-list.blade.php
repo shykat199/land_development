@@ -386,7 +386,7 @@
                         tableBody.empty();
 
                         if (response.data && response.data.length > 0) {
-                            response.data.forEach(function (u) {
+                            response.data.forEach(function (u, idx) {
                                 const badgeColor =
                                     u.role === 1
                                         ? 'bg-success'
@@ -403,10 +403,10 @@
 
                                 const row = `
                                 <tr>
-                                <td>${u.id}</td>
+                                <td>${++idx}</td>
                                 <td>${u.user_code}</td>
                                 <td>${u.name}</td>
-                                <td>${u.email}</td>
+                                <td>${u.email ?? 'Not Provided'}</td>
                                 <td><span class="badge ${badgeColor} text-white">${userRole}</span></td>
                                 <td>${u.created_at}</td>
                                 <td>
