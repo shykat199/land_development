@@ -24,7 +24,6 @@ class FrontendController extends Controller
             ->where('user_code', $user_code)
             ->firstOrFail();
 
-        // IMPORTANT: return a clean print view
         return view('index', compact('user'));
     }
 }

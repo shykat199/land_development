@@ -38,12 +38,13 @@
             padding: 20px 0;
         }
 
-        .page {
-            width: 794px;
-            margin: 0 auto;
+        .main-frame {
             background: #ffffff;
-            padding: 22px 26px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #cfcfcf;
             border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
         table {
@@ -69,7 +70,6 @@
         }
 
         .header-box {
-            border: 1px dashed #333;
             padding: 12px;
             margin-bottom: 10px;
         }
@@ -82,21 +82,40 @@
 
         .center-title {
             text-align: center;
-            font-weight: 700;
+            font-weight: 400;
             margin: 8px 0 10px;
             line-height: 1.4;
         }
 
         .section-title {
             text-align: center;
-            font-weight: 700;
+            font-weight: 500;
             padding: 6px 0;
         }
 
         .footer {
             margin-top: 14px;
             font-size: 14px;
+            width: 800px;
         }
+
+        .value-line {
+            width: 100%;
+            border-bottom: 1px dotted #333;
+            padding-bottom: 2px;
+            line-height: 1.4;
+        }
+
+        .revenue-table {
+            border-collapse: collapse;
+        }
+
+        .revenue-table th,
+        .revenue-table td {
+            border: 1px solid #d1cfcf;   /* ✅ solid border */
+        }
+
+
 
         @media print {
             body * {
@@ -141,180 +160,363 @@
                 <div class="print-bar">
                     <button onclick="window.print()">🖨️ প্রিন্ট</button>
                 </div>
-                <div class="page">
 
-                    <div style="height:800px;">
-                        <!-- HEADER -->
-                        <div class="header-box">
-                            <div class="top-row">
-                                <div>
-                                    বাংলাদেশ ফরম নং ১০৭৯<br>
-                                    (সংশোধিত)
-                                </div>
-                                <div style="text-align:right;">
-                                    (পরিশিষ্ট-০৮)<br>
-                                    ক্রমিক নং ৩০৮২৪৮৩০৫৫
-                                </div>
+                <div class="main-frame" style="background: #ffffff; margin: 20px">
+                    <!-- HEADER -->
+                    <div class="header-box">
+                        <div class="top-row">
+                            <div>
+                                বাংলাদেশ ফরম নং {{ getSettingsData('form_number') }}<br>
+                                (সংশোধিত)
                             </div>
-
-                            <div class="center-title">
-                                ভূমি উন্নয়ন কর পরিশোধ রশিদ<br>
-                                (অনুচ্ছেদ ৩৯ দ্রষ্টব্য)
+                            <div style="text-align:right;">
+                                (পরিশিষ্ট-{{ getSettingsData('appendix') }})<br>
+                                ক্রমিক নং <span id="cromik_number">{{ getSettingsData('cromik_number') }}</span>
                             </div>
-
-                            <table class="no-border">
-                                <tr>
-                                    <td>সিটি কর্পোরেশন / পৌর / ইউনিয়ন ভূমি অফিসের নাম:</td>
-                                    <td colspan="5">কাশিমপুর ইউনিয়ন ভূমি অফিস</td>
-                                </tr>
-                                <tr>
-                                    <td>মৌজার নাম ও কোড নং:</td>
-                                    <td>গোলামরচর - ৩</td>
-                                    <td>উপজেলা/থানা:</td>
-                                    <td>টঙ্গী</td>
-                                    <td>জেলা:</td>
-                                    <td>গাজীপুর</td>
-                                </tr>
-                                <tr>
-                                    <td>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নং:</td>
-                                    <td>১০৪০৫</td>
-                                    <td>খতিয়ান নং:</td>
-                                    <td colspan="3">৭২</td>
-                                </tr>
-                            </table>
                         </div>
-                        <!-- মালিকের বিবরণ -->
-                        <table>
-                            <tr>
-                                <th colspan="3" class="section-title">মালিকের বিবরণ</th>
-                            </tr>
-                            <tr>
-                                <th>ক্রম</th>
-                                <th>মালিকের নাম</th>
-                                <th>মালিকের অংশ</th>
-                            </tr>
-                            <tr>
-                                <td align="center">১</td>
-                                <td>আব্দুল্লাহ পারভেজ</td>
-                                <td align="center">১</td>
-                            </tr>
-                        </table>
-                        <!-- জমির বিবরণ -->
-                        <table>
-                            <tr>
-                                <th colspan="4" class="section-title">জমির বিবরণ</th>
-                            </tr>
-                            <tr>
-                                <th>ক্রম</th>
-                                <th>দাগ নং</th>
-                                <th>জমির শ্রেণি</th>
-                                <th>জমির পরিমাণ (শতক)</th>
-                            </tr>
-                            <tr>
-                                <td align="center">১</td>
-                                <td align="center">২৭৬</td>
-                                <td>চালা (কৃষি)</td>
-                                <td align="center">৪১</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="right"><strong>সর্বমোট জমি (শতক)</strong></td>
-                                <td align="center"><strong>৪১</strong></td>
-                            </tr>
-                        </table>
-                        <!-- আদায়ের বিবরণ -->
-                        <table>
-                            <tr>
-                                <th colspan="8" class="section-title">আদায়ের বিবরণ</th>
-                            </tr>
-                            <tr>
-                                <th>তিন বছরের ঊর্ধ্বের বকেয়া</th>
-                                <th>গত তিন বছরের বকেয়া</th>
-                                <th>বকেয়ার জরিমানা ও ক্ষতিপূরণ</th>
-                                <th>হাল দাবি</th>
-                                <th>মোট দাবি</th>
-                                <th>মোট আদায়</th>
-                                <th>মোট বকেয়া</th>
-                                <th>মন্তব্য</th>
-                            </tr>
-                            <tr>
-                                <td align="center">০</td>
-                                <td align="center">০</td>
-                                <td align="center">০</td>
-                                <td align="center">১০০</td>
-                                <td align="center">১০০</td>
-                                <td align="center">১০০</td>
-                                <td align="center">০</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                        <!-- FOOTER -->
-                        <div class="footer" style="margin-top:14px; font-size:14px;">
 
-                            <!-- ROW 1 : Total in words (full width) -->
-                            <div
-                                style="width:100%; border-bottom:1px dotted #333; padding-bottom:4px; margin-bottom:10px;">
-                                <strong>সর্বমোট (কথায়):</strong> এক শত টাকা মাত্র ।
-                            </div>
-
-                            <!-- ROW 2 : Two columns -->
-                            <table class="no-border" style="width:100%;">
-                                <tr>
-
-                                    <!-- LEFT COLUMN -->
-                                    <td style="width:65%; vertical-align:top; line-height:1.6;">
-
-                                        <div>
-                                            <strong>নোট:</strong> সর্বশেষ কর পরিশোধের সাল - ২০২৪-২০২৫ (অর্থবছর)
-                                        </div>
-
-                                        <div>
-                                            চালান নং : ২৮৫৪-০০১৩২৮৫৬
-                                        </div>
-
-                                        <div style="margin-top:4px;">
-                                            <strong>তারিখ :</strong> ২২ সেপ্টেম্বর, ২০২৪
-                                        </div>
-
-                                        <div
-                                            style="width:200px; border-bottom:1px solid #333; margin:3px 0 3px 52px;"></div>
-
-                                        <div style="margin-left:52px;">
-                                            22 September, 2024
-                                        </div>
-
-
-                                    </td>
-
-                                    <!-- RIGHT COLUMN -->
-                                    <td style="width:35%; vertical-align:top;">
-
-                                        <div style="display:flex; gap:12px; align-items:flex-start;">
-
-                                            <!-- QR -->
-                                            <img
-                                                src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=land-tax-receipt"
-                                                alt="QR Code"
-                                                style="width:90px; height:90px;"
-                                            />
-
-                                            <!-- Right text -->
-                                            <div style="line-height:1.6;">
-                                                এই দাখিলা ইলেকট্রনিকভাবে তৈরি করা হয়েছে,<br>
-                                                কোন স্বাক্ষর প্রয়োজন নেই।
-                                            </div>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-                            </table>
-
+                        <div class="center-title">
+                            ভূমি উন্নয়ন কর পরিশোধ রশিদ<br>
+                            (অনুচ্ছেদ {{ getSettingsData('paragraph') }} দ্রষ্টব্য)
                         </div>
+
+                        <table class="no-border" style="width:100%; border-collapse:collapse;">
+
+                            <tr>
+                                <td style="width:41%;">
+                                    সিটি কর্পোরেশন / পৌর / ইউনিয়ন ভূমি অফিসের নাম:
+                                </td>
+                                <td colspan="5">
+                                    <div class="value-line">
+                                        {{ $user->city_corporation }}
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>মৌজার নাম ও কোড নং:</td>
+                                <td>
+                                    <div class="value-line">{{ $user->jln }}</div>
+                                </td>
+
+                                <td>উপজেলা/থানা:</td>
+                                <td>
+                                    <div class="value-line">{{ $user->thana }}</div>
+                                </td>
+
+                                <td>জেলা:</td>
+                                <td>
+                                    <div class="value-line">{{ $user->district }}</div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নং:</td>
+                                <td colspan="5">
+                                    <div class="value-line">{{ $user->holding_no }}</div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>খতিয়ান নং:</td>
+                                <td colspan="5">
+                                    <div class="value-line">{{ $user->khotian_no }}</div>
+                                </td>
+                            </tr>
+
+                        </table>
                     </div>
+                    <!-- মালিকের বিবরণ -->
+                    <table>
+                        <h5 class="section-title">মালিকের বিবরণ</h5>
+                        <tr>
+                            <th>ক্রম</th>
+                            <th>মালিকের নাম</th>
+                            <th>মালিকের অংশ</th>
+                        </tr>
+                        <tr>
+                            <td align="center">১</td>
+                            <td>{{$user->name}}</td>
+                            <td align="center">{{$user->owner_share}}</td>
+                        </tr>
+                    </table>
+                    <!-- জমির বিবরণ -->
+                    <table>
+
+                        <h5 class="section-title">জমির বিবরণ</h5>
+
+                        <tr>
+                            <th>ক্রম</th>
+                            <th>দাগ নং</th>
+                            <th>জমির শ্রেণি</th>
+                            <th>জমির পরিমাণ (শতক)</th>
+                        </tr>
+                        @if(!empty($user->userLandInfo))
+                            @foreach($user->userLandInfo as $key => $userland)
+                                <tr>
+                                    <td align="center">{{++$key}}</td>
+                                    <td align="center">{{$userland->dag_no}}</td>
+                                    <td align="center">{{$userland->land_class}}</td>
+                                    <td align="center">{{$userland->total_land}}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        <tr>
+                            <td colspan="3" align="right"><strong>সর্বমোট জমি (শতক)</strong></td>
+                            <td align="center"><strong>{{$user->userLandInfo->sum('total_land')}}</strong></td>
+                        </tr>
+                    </table>
+                    <!-- আদায়ের বিবরণ -->
+                    <table class="revenue-table" style="margin-top: 20px">
+                        <tr>
+                            <th colspan="8" class="section-title" style="background: #f2f2f2">আদায়ের বিবরণ</th>
+                        </tr>
+                        <tr>
+                            <th>তিন বছরের ঊর্ধ্বের বকেয়া</th>
+                            <th>গত তিন বছরের বকেয়া</th>
+                            <th>বকেয়ার জরিমানা ও ক্ষতিপূরণ</th>
+                            <th>হাল দাবি</th>
+                            <th>মোট দাবি</th>
+                            <th>মোট আদায়</th>
+                            <th>মোট বকেয়া</th>
+                            <th>মন্তব্য</th>
+                        </tr>
+                        @if(!empty($user->userRevenueInfo))
+                            @foreach($user->userRevenueInfo as $key =>$revenue)
+                                <tr>
+                                    <td align="center">{{$revenue->previous_3_years_arrears}}</td>
+                                    <td align="center">{{$revenue->arrears_of_last_3_years}}</td>
+                                    <td align="center">{{$revenue->current_year_demand_and_surcharge}}</td>
+                                    <td align="center">{{$revenue->total_demand}}</td>
+                                    <td align="center">{{$revenue->total_arrear}}</td>
+                                    <td align="center">{{$revenue->total_collection}}</td>
+                                    <td align="center">{{$revenue->total_balance}}</td>
+                                    <td align="center">{{$revenue->remarks}}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </table>
+                    <!-- FOOTER -->
+                    <table style="
+                        width:765px;
+                        margin-top:14px;
+                        font-size:14px;
+                        border-collapse:collapse;
+                        border:none;
+                    ">
+
+                        <tr>
+                            <td colspan="3" style="padding:4px 0 6px 0; border:none;">
+
+                                <div style="
+                                width:100%;
+                                border-bottom:1px dotted #333;
+                                padding-bottom:4px;
+                            ">
+                                    সর্বমোট (কথায়):
+                                    <span id="totalInWords"></span> টাকা মাত্র ।
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+
+                            <!-- LEFT COLUMN -->
+                            <td style="
+                                width:45%;
+                                vertical-align:top;
+                                line-height:1.6;
+                                padding-top:6px;
+                                border:none;
+                            ">
+
+                                <div>
+                                    নোট: সর্বশেষ কর পরিশোধের সাল -
+                                    {{ getSettingsData('fiscal_year') }}
+                                </div>
+
+                                <div>
+                                    চালান নং :
+                                    <span id="chalan_number">{{ $user->invoice }}</span>
+                                </div>
+
+                                <div style="margin-top:4px;">
+                                    তারিখ :
+                                    <span id="banglaCalendarDate"></span>
+                                </div>
+
+                                <div
+                                    style="width:200px; border-bottom:1px solid #333; margin:3px 0 3px 52px;">
+                                </div>
+
+                                <div style="margin-left:52px;">
+                                    <span id="englishDate"></span>
+                                </div>
+
+                            </td>
+                            @php
+                                $scanUrl =  route('user.dakhila',$user->invoice);
+                            @endphp
+
+                            <!-- QR COLUMN -->
+                            <td style="
+                            width:12%;
+                            text-align:center;
+                            vertical-align:top;
+                            padding-top:6px;
+                            border:none;
+                        ">
+
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data={{ urlencode($scanUrl) }}"
+                                     alt="QR Code"
+                                     style="width:75px; height:75px;"
+                                />
+                            </td>
+
+                            <!-- RIGHT NOTE COLUMN -->
+                            <td style="
+                                width:40%;
+                                vertical-align:top;
+                                padding-top:6px;
+                                text-align:center;
+                                line-height:1.6;
+                                border:none;
+                            ">
+                                এই দাখিলা ইলেকট্রনিকভাবে তৈরি করা হয়েছে,<br>
+                                কোন স্বাক্ষর প্রয়োজন নেই।
+                            </td>
+
+                        </tr>
+
+                    </table>
                 </div>
+
             </div>
         </div>
-
     </div>
 @endsection
+@push('custom.script')
+    <script>
+        const totalAmount = Number(@json($user->userRevenueInfo->sum('total_collection') ?? 0));
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const banglaWords = {
+                0: 'শূন্য',
+                1: 'এক', 2: 'দুই', 3: 'তিন', 4: 'চার', 5: 'পাঁচ',
+                6: 'ছয়', 7: 'সাত', 8: 'আট', 9: 'নয়',
+                10: 'দশ', 11: 'এগারো', 12: 'বারো', 13: 'তেরো', 14: 'চৌদ্দ',
+                15: 'পনেরো', 16: 'ষোল', 17: 'সতেরো', 18: 'আঠারো', 19: 'উনিশ',
+                20: 'বিশ', 21: 'একুশ', 22: 'বাইশ', 23: 'তেইশ', 24: 'চব্বিশ',
+                25: 'পঁচিশ', 26: 'ছাব্বিশ', 27: 'সাতাশ', 28: 'আটাশ', 29: 'ঊনত্রিশ',
+                30: 'ত্রিশ', 31: 'একত্রিশ', 32: 'বত্রিশ', 33: 'তেত্রিশ',
+                34: 'চৌত্রিশ', 35: 'পঁয়ত্রিশ', 36: 'ছত্রিশ',
+                37: 'সাঁইত্রিশ', 38: 'আটত্রিশ', 39: 'ঊনচল্লিশ',
+                40: 'চল্লিশ', 41: 'একচল্লিশ', 42: 'বিয়াল্লিশ',
+                43: 'তেতাল্লিশ', 44: 'চুয়াল্লিশ', 45: 'পঁয়তাল্লিশ',
+                46: 'ছেচল্লিশ', 47: 'সাতচল্লিশ', 48: 'আটচল্লিশ', 49: 'ঊনপঞ্চাশ',
+                50: 'পঞ্চাশ', 60: 'ষাট', 70: 'সত্তর', 80: 'আশি', 90: 'নব্বই'
+            };
+
+            function numberToBanglaWords(num) {
+                if (num === 0) return banglaWords[0];
+
+                let result = '';
+
+                if (num >= 10000000) {
+                    result += numberToBanglaWords(Math.floor(num / 10000000)) + ' কোটি ';
+                    num %= 10000000;
+                }
+                if (num >= 100000) {
+                    result += numberToBanglaWords(Math.floor(num / 100000)) + ' লক্ষ ';
+                    num %= 100000;
+                }
+                if (num >= 1000) {
+                    result += numberToBanglaWords(Math.floor(num / 1000)) + ' হাজার ';
+                    num %= 1000;
+                }
+                if (num >= 100) {
+                    result += numberToBanglaWords(Math.floor(num / 100)) + ' শত ';
+                    num %= 100;
+                }
+                if (num > 0) {
+                    result += banglaWords[num] || '';
+                }
+
+                return result.trim();
+            }
+
+
+            const el = document.getElementById('totalInWords');
+            if (el) {
+                el.innerText = numberToBanglaWords(totalAmount);
+            }
+
+        });
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const bnMap = {
+                '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
+                '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯'
+            };
+
+            function toBanglaDigits(value) {
+                return value.toString().replace(/[0-9]/g, d => bnMap[d]);
+            }
+
+            function banglaDigits(value) {
+                let result = '';
+                const str = value.toString();
+
+                for (let i = 0; i < str.length; i++) {
+                    const ch = str[i];
+                    result += bnMap[ch] ?? ch;
+                }
+                return result;
+            }
+
+            const el = document.getElementById('chalan_number');
+            const cm = document.getElementById('cromik_number');
+
+            if (el) {
+                el.innerText = toBanglaDigits(el.innerText.trim());
+            }
+            if (cm) {
+                cm.innerText = banglaDigits(cm.innerText.trim());
+            }
+
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const today = new Date();
+
+            /* ---------- Bengali (Bangla) Calendar Date ---------- */
+            const banglaFormatter = new Intl.DateTimeFormat('bn-BD-u-ca-beng', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const banglaDate = banglaFormatter.format(today);
+
+            /* ---------- English Date ---------- */
+            const englishFormatter = new Intl.DateTimeFormat('en-GB', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const englishDate = englishFormatter.format(today);
+
+            document.getElementById('banglaCalendarDate').innerText = banglaDate;
+            document.getElementById('englishDate').innerText = englishDate;
+
+        });
+    </script>
+@endpush

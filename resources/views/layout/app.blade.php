@@ -175,5 +175,7 @@
     });
 </script>
 
+@stack('custom.script')
+
 </body>
 </html>
