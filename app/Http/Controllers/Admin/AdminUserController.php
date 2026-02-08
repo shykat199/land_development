@@ -148,7 +148,7 @@ class AdminUserController extends Controller
         } catch (\Exception $e) {
 
             DB::rollBack();
-
+            dd($e->getMessage());
             toast('কিছু একটা সমস্যা হয়েছে!', 'error');
             return redirect()->back()->withInput();
         }
@@ -202,7 +202,7 @@ class AdminUserController extends Controller
         } catch (\Exception $e) {
 
             DB::rollBack();
-
+            dd($e->getMessage());
             toast('কিছু একটা সমস্যা হয়েছে!', 'error');
             return redirect()->back()->withInput();
         }
@@ -284,6 +284,7 @@ class AdminUserController extends Controller
 
         } catch (\Exception $e) {
 
+            dd($e->getMessage());
             DB::rollBack();
             toast('কিছু একটা সমস্যা হয়েছে! আবার চেষ্টা করুন।', 'error');
             return redirect()->back()->withInput();
