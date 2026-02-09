@@ -1,6 +1,6 @@
 <div class="Toastify"></div>
 <div class="bg-bottleGreen lg:hidden">
-    <p class="text-white text-14 font-medium text-center">সোমবার ১৯ মাঘ ১৪৩২ ২ ফেব্রুয়ারি ২০২৬</p>
+    <p id="todayDate" class="text-white text-14 font-medium text-center"></p>
 </div>
 <nav class="px-3 lg:px-0 bg-[#FFFFFF] shadow-xl sticky w-full z-50 top-0">
     <div class="lg:container lg:mx-auto px-2 lg:px-[45px] flex justify-between items-center pb-2 lg:pb-0">
@@ -16,11 +16,10 @@
             <div class="w-full hidden lg:block">
                 <div class="flex justify-center items-center space-x-7 bg-gradient-to-l from-white to-white via-bottleGreen py-1">
                     <div class="lg:flex items-center gap-4 hidden">
-                        <p class="text-white text-14 font-medium ">সোমবার,১৯ মাঘ ১৪৩২,২ ফেব্রুয়ারি ২০২৬</p>
+                        <p class="text-white text-14 font-medium " id="todayCurrentDate"></p>
                         <button title="Change Language">
-                            <span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span>
-                            <span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span>
-                        </button>
+                            <span class="border border-bottleGreen px-2 bg-white text-bottleGreen">বাং</span>
+                            <span class="border border-bottleGreen px-2 bg-bottleGreen text-slate-50">EN</span>                        </button>
                     </div>
                 </div>
                 <div class="hidden lg:flex justify-end py-1 gap-2">
@@ -100,8 +99,8 @@
                 </div>
             </div>
             <button class="lg:hidden" title="Change Language">
-                <span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span>
-                <span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span>
+                <span class="border border-bottleGreen px-2 bg-white bg-bottleGreen px-2 text-slate-50">বাং</span>
+                <span class="border border-bottleGreen px-2 bg-bottleGreen text-bottleGreen">EN</span>
             </button>
             <div class="hidden lg:block">
                 <div class="relative">

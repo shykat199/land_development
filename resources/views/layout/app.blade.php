@@ -16,83 +16,7 @@
     <meta name="description" content="Land Development Tax Management Project"/>
     <link rel="icon" href="{{asset('assets/favicon1.jpg')}}"/>
     <meta name="next-size-adjust"/>
-    <script src="{{asset('assets/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js')}}" noModule="" type="b6c094adeb7fd140e353cf6b-text/javascript"></script>
-    <style>
-        #nprogress {
-            pointer-events: none
-        }
-
-        #nprogress .bar {
-            background: #12633D;
-            position: fixed;
-            z-index: 1600;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px
-        }
-
-        #nprogress .peg {
-            display: block;
-            position: absolute;
-            right: 0;
-            width: 100px;
-            height: 100%;
-            box-shadow: 0 0 10px #12633D, 0 0 5px #12633D;
-            opacity: 1;
-            -webkit-transform: rotate(3deg) translate(0px, -4px);
-            -ms-transform: rotate(3deg) translate(0px, -4px);
-            transform: rotate(3deg) translate(0px, -4px)
-        }
-
-        #nprogress .spinner {
-            display: block;
-            position: fixed;
-            z-index: 1600;
-            top: 15px;
-            right: 15px
-        }
-
-        #nprogress .spinner-icon {
-            width: 18px;
-            height: 18px;
-            box-sizing: border-box;
-            border: 2px solid transparent;
-            border-top-color: #12633D;
-            border-left-color: #12633D;
-            border-radius: 50%;
-            -webkit-animation: nprogress-spinner 400ms linear infinite;
-            animation: nprogress-spinner 400ms linear infinite
-        }
-
-        .nprogress-custom-parent {
-            overflow: hidden;
-            position: relative
-        }
-
-        .nprogress-custom-parent #nprogress .bar, .nprogress-custom-parent #nprogress .spinner {
-            position: absolute
-        }
-
-        @-webkit-keyframes nprogress-spinner {
-            0% {
-                -webkit-transform: rotate(0deg)
-            }
-            100% {
-                -webkit-transform: rotate(360deg)
-            }
-        }
-
-        @keyframes nprogress-spinner {
-            0% {
-                transform: rotate(0deg)
-            }
-            100% {
-                transform: rotate(360deg)
-            }
-        }
-    </style>
-    @stack('custom.style')
+{{--    <script src="{{asset('assets/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js')}}" noModule="" type="b6c094adeb7fd140e353cf6b-text/javascript"></script>--}}
 </head>
 <body class="__className_850483">
 @include('layout.partial.header')
@@ -174,8 +98,78 @@
         });
     });
 </script>
-
 @stack('custom.script')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
 
+        // Force Bangladesh time
+        const today = new Date(
+            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
+        );
+
+        /* ---------- Bangla Digits ---------- */
+        const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+        const toBn = n => n.toString().replace(/\d/g, d => bnDigits[d]);
+
+        /* ---------- Bangla Weekdays ---------- */
+        const bnWeekdays = [
+            'রবিবার','সোমবার','মঙ্গলবার',
+            'বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'
+        ];
+
+        /* ---------- Bangla Months (Correct Order) ---------- */
+        const bnMonths = [
+            'বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ',
+            'ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ',
+            'পৌষ','মাঘ','ফাল্গুন','চৈত্র'
+        ];
+
+        /* ---------- Accurate Bangla Date ---------- */
+        function getBanglaDate(date) {
+
+            const gY = date.getFullYear();
+            const gM = date.getMonth() + 1;
+            const gD = date.getDate();
+
+            let bnYear = gY - 593;
+            if (gM < 4 || (gM === 4 && gD < 14)) bnYear--;
+
+            const ref = new Date(gY, 3, 14); // 14 April
+            let diff = Math.floor((date - ref) / 86400000);
+            if (diff < 0) diff += isLeap(gY - 1) ? 366 : 365;
+
+            const monthDays = isLeap(gY)
+                ? [31,31,31,31,31,30,30,30,30,30,30,31]
+                : [31,31,31,31,31,30,30,30,30,30,30,30];
+
+            let m = 0;
+            while (diff >= monthDays[m]) {
+                diff -= monthDays[m];
+                m++;
+            }
+
+            return `${toBn(diff + 1)} ${bnMonths[m]} ${toBn(bnYear)}`;
+        }
+
+        function isLeap(y) {
+            return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+        }
+
+        /* ---------- English Date in Bangla ---------- */
+        const englishBangla = new Intl.DateTimeFormat('bn-BD', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }).format(today);
+
+        /* ---------- Final Output ---------- */
+        document.getElementById('todayDate').innerText =
+            `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+
+        document.getElementById('todayCurrentDate').innerText =
+            `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+
+    });
+</script>
 </body>
 </html>
