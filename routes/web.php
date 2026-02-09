@@ -12,7 +12,8 @@ Route::get('/', [FrontendController::class, 'index']);
 //Route::get('/user/dakhila/{user_code}', [FrontendController::class, 'dakhila'])->name('user.dakhila');
 
 // Dakhila print page (PUBLIC / PRINT)
-Route::get('/user/dakhila/{user_code}', [FrontendController::class, 'dakhila'])->name('user.dakhila');
+Route::get('/ldtax-holdings/individual-rashid-print-offline/{user_code}', [FrontendController::class, 'dakhila'])->name('user.dakhila');
+Route::get('user/dakhila/{user_code}', [FrontendController::class, 'qrDakhila'])->name('user.qr-dakhila');
 
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest')->name('login');
