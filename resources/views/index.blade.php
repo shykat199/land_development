@@ -421,7 +421,7 @@
 
                             </td>
                             @php
-                                $scanUrl =  route('user.qr-dakhila',$user->invoice);
+                                $scanUrl =  route('user.qr-dakhila',$user->user_code);
                             @endphp
 
                             <!-- QR COLUMN -->
