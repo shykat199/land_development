@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class FrontendController extends Controller
 {
     public function index(){
-        return view('index');
+        return view('welcome');
     }
 
     public function print($token)
@@ -24,6 +24,9 @@ class FrontendController extends Controller
             ->where('user_code', $user_code)
             ->firstOrFail();
 
-        return view('index', compact('user'));
+        $allSetting = getSettingsData(['form_number','cromik_number','appendix','paragraph','fiscal_year','form_title','bd_form_title','cromik_number_title','fiscal_year_title','footer_title','appendix_title']);
+
+
+        return view('index', compact('user','allSetting'));
     }
 }

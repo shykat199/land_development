@@ -27,3 +27,8 @@ function getSiteSettingsData($settingArray, $level)
     }
 
 }
+
+function totalUser()
+{
+    return \App\Models\User::where('role', USER_ROLE)->count();
+}

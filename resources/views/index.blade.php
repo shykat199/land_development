@@ -115,31 +115,37 @@
             border: 1px solid #d1cfcf;   /* ✅ solid border */
         }
 
-
-
         @media print {
+
+            @page {
+                margin: 0;
+            }
+
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
             body * {
                 visibility: hidden;
                 background: white;
             }
 
-            .page,
-            .page * {
+            .main-frame,
+            .main-frame * {
                 visibility: visible;
             }
 
-            .page {
+            .main-frame {
                 position: absolute;
-                left: 0;
                 top: 0;
-                width: 100%;
-                padding: 0;
-                margin: 0;
-                background: white;
-            }
-
-            .print-bar {
-                display: none !important;
+                left: 0;
+                margin: 20px !important;
+                padding: 10px !important;
+                background: #ffffff;
+                border: 1px solid #cfcfcf;
+                border-radius: 6px;
+                box-shadow: none;
             }
         }
 
@@ -166,17 +172,17 @@
                     <div class="header-box">
                         <div class="top-row">
                             <div>
-                                বাংলাদেশ ফরম নং {{ getSettingsData('form_number') }}<br>
+                                {{getSiteSettingsData($allSetting,'bd_form_title') ?? 'বাংলাদেশ ফরম নং'}} {{getSiteSettingsData($allSetting,'form_number')}}<br>
                                 (সংশোধিত)
                             </div>
                             <div style="text-align:right;">
-                                (পরিশিষ্ট-{{ getSettingsData('appendix') }})<br>
-                                ক্রমিক নং <span id="cromik_number">{{ getSettingsData('cromik_number') }}</span>
+                                ({{getSiteSettingsData($allSetting,'appendix_title') ?? 'পরিশিষ্ট-'}}{{ getSettingsData('appendix') }})<br>
+                                {{getSiteSettingsData($allSetting,'cromik_number_title') ?? 'ক্রমিক নং'}} <span id="cromik_number">{{ getSettingsData('cromik_number') }}</span>
                             </div>
                         </div>
 
                         <div class="center-title">
-                            ভূমি উন্নয়ন কর পরিশোধ রশিদ<br>
+                            {{getSiteSettingsData($allSetting,'form_title') ?? 'ভূমি উন্নয়ন কর পরিশোধ রশিদ'}}<br>
                             (অনুচ্ছেদ {{ getSettingsData('paragraph') }} দ্রষ্টব্য)
                         </div>
 
@@ -332,7 +338,7 @@
                             ">
 
                                 <div>
-                                    নোট: সর্বশেষ কর পরিশোধের সাল -
+                                    নোট: {{getSiteSettingsData($allSetting,'fiscal_year_title') ?? 'সর্বশেষ কর পরিশোধের সাল'}} -
                                     {{ getSettingsData('fiscal_year') }}
                                 </div>
 
@@ -383,8 +389,7 @@
                                 line-height:1.6;
                                 border:none;
                             ">
-                                এই দাখিলা ইলেকট্রনিকভাবে তৈরি করা হয়েছে,<br>
-                                কোন স্বাক্ষর প্রয়োজন নেই।
+                                {!! getSiteSettingsData($allSetting,'footer_title') ?? 'এই দাখিলা ইলেকট্রনিকভাবে তৈরি করা হয়েছে,<br>কোন স্বাক্ষর প্রয়োজন নেই।'!!}
                             </td>
 
                         </tr>
