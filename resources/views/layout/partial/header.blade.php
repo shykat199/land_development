@@ -1,4 +1,3 @@
-<div class="Toastify"></div>
 <div class="bg-bottleGreen lg:hidden">
     <p id="todayDate" class="text-white text-14 font-medium text-center"></p>
 </div>
@@ -18,8 +17,8 @@
                     <div class="lg:flex items-center gap-4 hidden">
                         <p class="text-white text-14 font-medium " id="todayCurrentDate"></p>
                         <button title="Change Language">
-                            <span class="border border-bottleGreen px-2 bg-white text-bottleGreen">বাং</span>
-                            <span class="border border-bottleGreen px-2 bg-bottleGreen text-slate-50">EN</span>                        </button>
+                            <span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span><span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span>
+                        </button>
                     </div>
                 </div>
                 <div class="hidden lg:flex justify-end py-1 gap-2">
@@ -29,9 +28,7 @@
                         </li>
                         <li class="group border-b lg:border-none p-1 lg:p-0">
                             <div class="inline-block relative" data-dropdown>
-                                <button
-                                    class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center"
-                                    data-dropdown-btn>
+                                <button class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center" data-dropdown-btn>
                                     মন্ত্রণালয়/ বিভাগ
                                     <svg class="ml-2 transition-transform duration-300"
                                          width="15" height="15" viewBox="0 0 15 15" fill="none"
@@ -41,10 +38,7 @@
                                     </svg>
                                 </button>
 
-                                <div
-                                    class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute
-               bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden"
-                                    data-dropdown-menu>
+                                <div class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden" data-dropdown-menu>
                                     <ul class="py-2 text-semiblack pb-3 flex flex-col space-y-2 text-14">
                                         <li><a href="https://minland.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি মন্ত্রণালয়</a></li>
                                         <li><a href="http://www.lrb.gov.bd/" class="block py-2 hover:text-magenta mx-4 border-b">ভূমি সংস্কার বোর্ড</a></li>
@@ -66,14 +60,11 @@
                                          class="ml-2 transition-transform duration-300"
                                          width="15" height="15" viewBox="0 0 15 15" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.875 5.2125L2.26219 4.6875L12.7566 4.6875L13.125 5.19375L7.84969 10.3125H7.07437L1.875 5.2125Z"
-                                              fill="#1E433D"></path>
+                                        <path d="M1.875 5.2125L2.26219 4.6875L12.7566 4.6875L13.125 5.19375L7.84969 10.3125H7.07437L1.875 5.2125Z" fill="#1E433D"></path>
                                     </svg>
                                 </button>
 
-                                <div id="guardMenu"
-                                     class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute
-                   bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden">
+                                <div id="guardMenu" class="custom-scrollbar w-44 max-h-60 overflow-y-auto z-50 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl hidden">
                                     <ul class="py-2 text-semiblack pb-3 flex flex-col space-y-2 text-14">
                                         <li>
                                             <a class="block py-2 hover:text-magenta mx-4 border-b"
@@ -99,8 +90,7 @@
                 </div>
             </div>
             <button class="lg:hidden" title="Change Language">
-                <span class="border border-bottleGreen px-2 bg-white bg-bottleGreen px-2 text-slate-50">বাং</span>
-                <span class="border border-bottleGreen px-2 bg-bottleGreen text-bottleGreen">EN</span>
+                <span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span><span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span>
             </button>
             <div class="hidden lg:block">
                 <div class="relative">
@@ -134,19 +124,19 @@
         </div>
     </div>
     <div class="px-2 pb-1 flex justify-between lg:hidden gap-2">
-        <button class="outline-none mobile-menu-button text-2xl text-primary font-bold">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="svg-inline--fa fa-bars "
-                 role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <button class="mobile-menu-button text-[#12633D]">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="currentColor"
-                      d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"></path>
+                      d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
             </svg>
         </button>
+
         <div>
             <button class="bg-bottleGreen text-white px-4 rounded-full flex items-center gap-1 text-12 lg:text-16 mb-2">
                 <span class="text-center">লগইন</span>
                 <span>
                     <svg class="w-3 h-3 lg:w-4 lg:h-4 fill-current transition-all duration-300 stroke-[4px] "
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path
                             d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path></svg>
                 </span>
             </button>
