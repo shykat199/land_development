@@ -88,6 +88,9 @@
                                         .text-left{text-align:left}
                                         .text-right{text-align:right}
                                         .text-center{text-align:center}
+                                        .user-revenue{
+                                            font-width: 700;
+                                        }
                                     </style>
                                     <style type="text/css" media="print">
                                         @page {
@@ -239,14 +242,14 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <td style="text-align: center;" >তিন বৎসরের ঊর্ধ্বের বকেয়া</td>
-                                                        <td style="text-align: center;">গত তিন বৎসরের বকেয়া</td>
-                                                        <td style="text-align: center;">বকেয়ার জরিমানা ও ক্ষতিপূরণ</td>
-                                                        <td style="text-align: center;" >হাল দাবি</td>
-                                                        <td style="text-align: center;" >মোট দাবি</td>
-                                                        <td style="text-align: center;" >মোট আদায়</td>
-                                                        <td style="text-align: center;" >মোট বকেয়া</td>
-                                                        <td style="text-align: center;" >মন্তব্য</td>
+                                                        <td class="user-revenue" style="text-align: center;" >তিন বৎসরের ঊর্ধ্বের বকেয়া</td>
+                                                        <td class="user-revenue" style="text-align: center;">গত তিন বৎসরের বকেয়া</td>
+                                                        <td class="user-revenue" style="text-align: center;">বকেয়ার জরিমানা ও ক্ষতিপূরণ</td>
+                                                        <td class="user-revenue" style="text-align: center;" >হাল দাবি</td>
+                                                        <td class="user-revenue" style="text-align: center;" >মোট দাবি</td>
+                                                        <td class="user-revenue" style="text-align: center;" >মোট আদায়</td>
+                                                        <td class="user-revenue" style="text-align: center;" >মোট বকেয়া</td>
+                                                        <td class="user-revenue" style="text-align: center;" >মন্তব্য</td>
                                                     </tr>
 
                                                     @if(!empty($user->userRevenueInfo))
@@ -267,7 +270,7 @@
                                                 <div style="width:100% !important; margin:10px 2px ;">
                                                     <p class="dotted_botton">
                                                         সর্বমোট (কথায়):
-                                                        {{$numto->bnWord($user->userRevenueInfo->sum('total_collection'))}} ।
+                                                        {{$numto->bnMoney($user->userRevenueInfo->sum('total_collection'))}} মাত্র ।
                                                     </p>
                                                 </div>
 
@@ -360,7 +363,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-        const today = new Date();
+        const today = new Date("{{ \Carbon\Carbon::parse($user->date)->format('Y-m-d') }}");
 
         const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
         const toBanglaNumber = num =>

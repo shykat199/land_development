@@ -155,9 +155,17 @@
             transform: rotate(360deg)
         }
     }
+
+    .new-font-width{
+        font-weight: 550 !important;
+    }
 </style>
 @stack('custom.style')
 <div class="Toastify"></div><!--/$-->
+@php
+    $banglaDate = \Carbon\Carbon::now()->toBangla('l, j F Y');
+    $banglaEngDate = \Carbon\Carbon::now()->formatBangla('j F Y');
+@endphp
 @include('layout.partial.header')
 @section('frontend-content')
 @show
@@ -303,7 +311,7 @@
         }).format(today);
 
         /* ---------- Final Output ---------- */
-        document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        // document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
         document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
@@ -374,7 +382,7 @@
         }).format(today);
 
         /* ---------- Final Output ---------- */
-        document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        // document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
         document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
