@@ -1,7 +1,8 @@
 @extends('admin.layout.master')
 @section('title','Update User Info')
 @push('admin.style')
-
+<style>
+</style>
 @endpush
 
 @section('admin-content')
@@ -19,6 +20,13 @@
                         </h4>
 
                         <div id="land-section">
+
+                            <div class="row land-row mb-3">
+                                <div class="col-md-4 mb-2">
+                                    <label>তারিখ</label>
+                                    <input type="date" placeholder="তারিখ" name="date" value="{{ date('Y-m-d') }}" class="form-control">
+                                </div>
+                            </div>
 
                             @forelse($user->userLandInfo as $index => $land)
                                 <div class="row land-row mb-3">
@@ -417,6 +425,12 @@
                 e.target.closest('.revenue-row').remove();
             }
         });
+
+        $(function(){
+            $('#datepicker').datepicker();
+        });
     </script>
+
+
 
 @endpush

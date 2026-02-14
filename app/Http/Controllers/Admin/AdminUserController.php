@@ -277,6 +277,12 @@ class AdminUserController extends Controller
                 }
             }
 
+            if ($request->has('date')){
+                User::findOrFail($id)->update([
+                    'date' => $request->date,
+                ]);
+            }
+
             DB::commit();
 
             toast('ইউজার সকল তথ্য সফলভাবে সংরক্ষণ হয়েছে!', 'success');

@@ -32,7 +32,8 @@ class User extends Authenticatable
         'khotian_no',
         'owner_share',
         'invoice',
-        'user_url'
+        'user_url',
+        'date'
     ];
 
     /**
