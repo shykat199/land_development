@@ -230,10 +230,24 @@
                             </tr>
 
                             @php
-                                $text = $user->jln;
+                                // Helper function to validate and convert to number
+                                function toNumeric($value) {
+                                    if ($value === null || $value === '') {
+                                        return 0;
+                                    }
+                                    // Remove any non-numeric characters except decimal point and minus sign
+                                    $cleaned = preg_replace('/[^0-9.-]/', '', (string)$value);
+                                    // Check if it's a valid number
+                                    if (is_numeric($cleaned)) {
+                                        return (float)$cleaned;
+                                    }
+                                    return 0;
+                                }
+
+                                $text = $user->jln ?? '';
 
                                 $converted = preg_replace_callback('/\d+/', function ($matches) use ($numto) {
-                                    return $numto->bnNum($matches[0]);
+                                    return $numto->bnNum(toNumeric($matches[0] ?? 0));
                                 }, $text);
                             @endphp
 
@@ -258,14 +272,14 @@
                             <tr>
                                 <td>২ নং রেজিস্টার অনুযায়ী হোল্ডিং নং:</td>
                                 <td colspan="5">
-                                    <div class="value-line">{{ $numto->bnNum($user->holding_no) }}</div>
+                                    <div class="value-line">{{ $numto->bnNum(toNumeric($user->holding_no)) }}</div>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>খতিয়ান নং:</td>
                                 <td colspan="5">
-                                    <div class="value-line">{{ $numto->bnNum($user->khotian_no) }}</div>
+                                    <div class="value-line">{{ $numto->bnNum(toNumeric($user->khotian_no)) }}</div>
                                 </td>
                             </tr>
 
@@ -300,15 +314,15 @@
                             @foreach($user->userLandInfo as $key => $userland)
                                 <tr>
                                     <td align="center">{{$numto->bnNum(++$key)}}</td>
-                                    <td align="center">{{$numto->bnNum($userland->dag_no)}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($userland->dag_no))}}</td>
                                     <td align="center">{{$userland->land_class}}</td>
-                                    <td align="center">{{$numto->bnNum($userland->total_land)}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($userland->total_land))}}</td>
                                 </tr>
                             @endforeach
                         @endif
                         <tr>
                             <td colspan="3" align="right">সর্বমোট জমি (শতক)</td>
-                            <td align="center">{{$numto->bnNum($user->userLandInfo->sum('total_land'))}}</td>
+                            <td align="center">{{$numto->bnNum(toNumeric($user->userLandInfo->sum('total_land')))}}</td>
                         </tr>
                     </table>
                     <!-- আদায়ের বিবরণ -->
@@ -329,13 +343,13 @@
                         @if(!empty($user->userRevenueInfo))
                             @foreach($user->userRevenueInfo as $key =>$revenue)
                                 <tr>
-                                    <td align="center">{{$numto->bnNum($revenue->previous_3_years_arrears)}}</td>
-                                    <td align="center">{{$numto->bnNum($revenue->arrears_of_last_3_years)}}</td>
-                                    <td align="center">{{$numto->bnNum($revenue->current_year_demand_and_surcharge)}}</td>
-                                    <td align="center">{{$numto->bnNum($revenue->total_demand)}}</td>
-                                    <td align="center">{{$numto->bnNum($revenue->total_arrear)}}</td>
-                                    <td align="center">{{$numto->bnNum($revenue->total_collection)}}</td>
-                                    <td align="center">{{$numto->bnNum($revenue->total_balance)}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->previous_3_years_arrears))}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->arrears_of_last_3_years))}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->current_year_demand_and_surcharge))}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->total_demand))}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->total_arrear))}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->total_collection))}}</td>
+                                    <td align="center">{{$numto->bnNum(toNumeric($revenue->total_balance))}}</td>
                                     <td align="center">{{$revenue->remarks}}</td>
                                 </tr>
                             @endforeach

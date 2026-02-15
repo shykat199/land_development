@@ -15,7 +15,7 @@ class DashboardController extends Controller
             DB::raw('DATE(created_at) as date'),
             DB::raw('COUNT(*) as count')
         )
-            ->groupBy('date')
+            ->groupByRaw('DATE(created_at)')
             ->orderBy('date', 'ASC')
             ->get();
 

@@ -21,7 +21,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
 
-            if (auth()->user()->role !== ADMIN_ROLE) {
+            if (auth()->user()->role != ADMIN_ROLE) {
                 Auth::logout();
 
                 Alert::toast('You are not authorized as admin', 'error');
