@@ -1,5 +1,5 @@
 <div class="bg-bottleGreen lg:hidden">
-    <p class="text-white text-14 font-medium text-center">{{ $banglaDate }}</p>
+    <p class="text-white text-14 font-medium text-center">{{ $banglaDate }}, {{$banglaEngDate}}</p>
 </div>
 <nav class="px-3 lg:px-0 bg-[#FFFFFF] shadow-xl sticky w-full z-50 top-0">
     <div class="lg:container lg:mx-auto px-2 lg:px-[45px] flex justify-between items-center pb-2 lg:pb-0">
@@ -149,7 +149,7 @@
             </li>
             <li class="group border-b lg:border-none p-1 lg:p-0">
                 <div class="inline-block relative">
-                    <button class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
+                    <button class="submenu-toggle submenu-toggletext-semiblack focus:outline-none font-medium text-center inline-flex items-center">
                         মন্ত্রণালয়/ বিভাগ
                         <svg class="ml-2" width="15" height="15" viewBox="0 0 15 15" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -183,7 +183,7 @@
             </li>
             <li class="group border-b lg:border-none p-1 lg:p-0">
                 <div class="inline-block relative">
-                    <button class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
+                    <button class="submenu-toggle text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
                         গার্ড ফাইল
                         <svg class="ml-2" width="15" height="15" viewBox="0 0 15 15" fill="none"
                              xmlns="http://www.w3.org/2000/svg">

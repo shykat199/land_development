@@ -79,6 +79,15 @@
     <meta name="next-size-adjust"/>
     <script src="{{asset('assets/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js')}}" noModule=""
             type="846ea41a744d4e90b0f707e5-text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /*body {*/
+        /*    font-family: 'Noto Sans Bengali', 'Kalpurush', Arial, sans-serif !important;*/
+        /*}*/
+
+    </style>
+
 </head>
 <body class="__className_850483">
 <style>
@@ -250,28 +259,10 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        /* ---------- Get Today in Asia/Dhaka (SAFE) ---------- */
-        function getDhakaToday() {
-            const now = new Date();
-
-            const parts = new Intl.DateTimeFormat('en-CA', {
-                timeZone: 'Asia/Dhaka',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            }).formatToParts(now);
-
-            const get = t => parts.find(p => p.type === t).value;
-
-            return new Date(
-                Number(get('year')),
-                Number(get('month')) - 1,
-                Number(get('day')),
-                12
-            );
-        }
-
-        const today = getDhakaToday();
+        // Force Bangladesh time
+        const today = new Date(
+            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
+        );
 
         /* ---------- Bangla Digits ---------- */
         const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
@@ -283,30 +274,14 @@
             'বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'
         ];
 
-        /* ---------- Bangla Months (Bangla Calendar) ---------- */
+        /* ---------- Bangla Months (Correct Order) ---------- */
         const bnMonths = [
             'বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ',
             'ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ',
             'পৌষ','মাঘ','ফাল্গুন','চৈত্র'
         ];
 
-        /* ---------- English Months (Bangla text) ---------- */
-        const bnEngMonths = [
-            'জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল',
-            'মে','জুন','জুলাই','আগস্ট',
-            'সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'
-        ];
-
-        function getEnglishBanglaDate(date) {
-            return `${toBn(date.getDate())} ${bnEngMonths[date.getMonth()]} ${toBn(date.getFullYear())}`;
-        }
-
-        /* ---------- Leap Year ---------- */
-        function isLeap(y) {
-            return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
-        }
-
-        /* ---------- Bangla Date (Corrected) ---------- */
+        /* ---------- Accurate Bangla Date ---------- */
         function getBanglaDate(date) {
 
             const gY = date.getFullYear();
@@ -316,16 +291,13 @@
             let bnYear = gY - 593;
             if (gM < 4 || (gM === 4 && gD < 14)) bnYear--;
 
-            const ref = new Date(gY, 3, 14, 12);
+            const ref = new Date(gY, 3, 14); // 14 April
             let diff = Math.floor((date - ref) / 86400000);
-
             if (diff < 0) diff += isLeap(gY - 1) ? 366 : 365;
 
-            const monthDays = [
-                31,31,31,31,31,30,30,30,30,30,
-                isLeap(gY) ? 30 : 29,
-                30
-            ];
+            const monthDays = isLeap(gY)
+                ? [31,31,31,31,31,30,30,30,30,30,30,31]
+                : [31,31,31,31,31,30,30,30,30,30,30,30];
 
             let m = 0;
             while (diff >= monthDays[m]) {
@@ -333,7 +305,8 @@
                 m++;
             }
 
-            let banglaDay = diff;
+            return `${toBn(diff + 1)} ${bnMonths[m]} ${toBn(bnYear)}`;
+        }
 
         function isLeap(y) {
             return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
@@ -349,7 +322,7 @@
         /* ---------- Final Output ---------- */
         // document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
-        document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        // document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
     });
 </script>
@@ -403,14 +376,68 @@
                 m++;
             }
 
-            return `${toBn(banglaDay)} ${bnMonths[m]} ${toBn(bnYear)}`;
+            return `${toBn(diff + 1)} ${bnMonths[m]} ${toBn(bnYear)}`;
         }
+
+        function isLeap(y) {
+            return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+        }
+
+        /* ---------- English Date in Bangla ---------- */
+        const englishBangla = new Intl.DateTimeFormat('bn-BD', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }).format(today);
 
         /* ---------- Final Output ---------- */
         // document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
-        document.getElementById('todayDate').innerText = finalDate;
-        document.getElementById('todayCurrentDate').innerText = finalDate;
+        // document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.querySelector(".mobile-menu-button");
+        const mobileMenu = document.querySelector(".mobile-menu");
+
+        menuButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const submenuButtons = document.querySelectorAll(".submenu-toggle");
+
+        submenuButtons.forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const submenu = this.nextElementSibling;
+
+                // Close other open submenus
+                document.querySelectorAll(".submenu-toggle + div").forEach(menu => {
+                    if (menu !== submenu) {
+                        menu.classList.add("hidden");
+                    }
+                });
+
+                // Toggle current submenu
+                submenu.classList.toggle("hidden");
+            });
+        });
 
     });
 </script>

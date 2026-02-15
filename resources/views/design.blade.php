@@ -28,6 +28,13 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="https://dakhila.ldtax.gov.bd/img/favicon.ico"/>
     <script src="https://dakhila.ldtax.gov.bd/js/jquery-2.1.1.min.js" type="1ca5643818c80d98afc8aea8-text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /*body {*/
+        /*    font-family: 'Noto Sans Bengali', 'Kalpurush', Arial, sans-serif !important;*/
+        /*}*/
+
+    </style>
 </head>
 
 <body class="page-md page-sidebar-page-sidebar-closed-hide-logo page-header-fixed page-footer-fixed" oncontextmenu="if (!window.__cfRLUnblockHandlers) return false; return false;" data-cf-modified-1ca5643818c80d98afc8aea8-="">
@@ -114,7 +121,7 @@
                                                     <table style="width: 100%;">
                                                         <tr>
                                                             <td class="text-left">{{getSiteSettingsData($allSetting,'bd_form_title') ?? 'বাংলাদেশ ফরম নং'}} {{getSiteSettingsData($allSetting,'form_number')}}</td>
-                                                            <td class="text-right">({{getSiteSettingsData($allSetting,'appendix_title') ?? 'পরিশিষ্ট:'}}{{ getSettingsData('appendix') }})</td>
+                                                            <td class="text-right">({{getSiteSettingsData($allSetting,'appendix_title') ?? 'পরিশিষ্ট: '}} {{ getSettingsData('appendix') }})</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="text-left">(সংশোধিত)</td>
@@ -280,14 +287,29 @@
                                                             <p style="margin: 0 !important;">
                                                                 নোট: {{getSiteSettingsData($allSetting,'fiscal_year_title') ?? 'সর্বশেষ কর পরিশোধের সাল'}} - {{ getSettingsData('fiscal_year') }}
                                                             </p>
-                                                            <p class="input_bangla"> চালান নং : <span id="chalan_number">{{ $user->invoice }}</span></p>
+                                                            @php
+                                                                $value = $user->invoice;
+
+                                                                $banglaValue = preg_replace_callback('/\d/', function ($m) {
+                                                                    $en = ['0','1','2','3','4','5','6','7','8','9'];
+                                                                    $bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+                                                                    return str_replace($en, $bn, $m[0]);
+                                                                }, $value);
+
+                                                            @endphp
+                                                            <p class="input_bangla"> চালান নং : {{ $banglaValue }}</span></p>
+
+                                                            @php
+                                                                $banglaDate = \Carbon\Carbon::parse($user->date)->toBangla('j F Y');
+                                                                $banglaEngDate = \Carbon\Carbon::parse($user->date)->formatBangla('j F, Y');
+                                                            @endphp
                                                             <p>তারিখ : </p>
                                                                 <div style="margin-top: -37px;margin-left: 10px;">
                                                                     <p style="width: 115px;padding: 0;margin: 0;margin-left: 38px;margin-bottom: 2px;">
-                                                                        <span id="banglaCalendarDate"></span>
+                                                                        <span>{{$banglaDate}}</span>
                                                                     </p>
                                                                     <span style="border-top:1px solid; margin-left:36px;">
-                                                                        <span id="englishDate"></span>
+                                                                        <span>{{$banglaEngDate}}</span>
                                                                     </span>
                                                                     <p></p>
                                                                 </div>
@@ -366,8 +388,7 @@
         const today = new Date("{{ \Carbon\Carbon::parse($user->date)->format('Y-m-d') }}");
 
         const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-        const toBanglaNumber = num =>
-            num.toString().replace(/\d/g, d => bnDigits[d]);
+        const toBanglaNumber = num => num.toString().replace(/\d/g, d => bnDigits[d]);
 
         const banglaMonths = [
             'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ',
