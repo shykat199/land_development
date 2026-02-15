@@ -1,5 +1,5 @@
 <div class="bg-bottleGreen lg:hidden">
-    <p id="todayDate" class="text-white text-14 font-medium text-center"></p>
+    <p class="text-white text-14 font-medium text-center">{{ $banglaDate }}</p>
 </div>
 <nav class="px-3 lg:px-0 bg-[#FFFFFF] shadow-xl sticky w-full z-50 top-0">
     <div class="lg:container lg:mx-auto px-2 lg:px-[45px] flex justify-between items-center pb-2 lg:pb-0">
@@ -15,7 +15,7 @@
             <div class="w-full hidden lg:block">
                 <div class="flex justify-center items-center space-x-7 bg-gradient-to-l from-white to-white via-bottleGreen py-1">
                     <div class="lg:flex items-center gap-4 hidden">
-                        <p class="text-white text-14 font-medium " id="todayCurrentDate"></p>
+                        <p class="text-white text-14 font-medium ">{{$banglaDate}}, {{$banglaEngDate}}</p>
                         <button title="Change Language">
                             <span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span><span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span>
                         </button>
@@ -24,11 +24,11 @@
                 <div class="hidden lg:flex justify-end py-1 gap-2">
                     <ul class="lg:flex items-center text-left space-y-4 lg:space-y-0 lg:gap-6 lg:text-18 p-2 lg:p-0">
                         <li class="border-b lg:border-none p-1 lg:p-0">
-                            <a class="text-semiblack font-medium hover:text-magenta" href="https://ldtax.gov.bd/">হোম</a>
+                            <a class="text-semiblack new-font-width font-medium hover:text-magenta" href="https://ldtax.gov.bd/">হোম</a>
                         </li>
                         <li class="group border-b lg:border-none p-1 lg:p-0">
                             <div class="inline-block relative" data-dropdown>
-                                <button class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center" data-dropdown-btn>
+                                <button class="text-semiblack new-font-width focus:outline-none font-medium text-center inline-flex items-center" data-dropdown-btn>
                                     মন্ত্রণালয়/ বিভাগ
                                     <svg class="ml-2 transition-transform duration-300"
                                          width="15" height="15" viewBox="0 0 15 15" fill="none"
@@ -50,11 +50,11 @@
                             </div>
                         </li>
                         <li class="border-b lg:border-none p-1 lg:p-0">
-                            <a  class="text-semiblack font-medium hover:text-magenta" href="https://ldtax.gov.bd/vumiseba-form">ভূমিসেবা ফর্ম</a>
+                            <a  class="text-semiblack new-font-width font-medium hover:text-magenta" href="https://ldtax.gov.bd/vumiseba-form">ভূমিসেবা ফর্ম</a>
                         </li>
                         <li class="border-b lg:border-none p-1 lg:p-0">
                             <div class="inline-block relative">
-                                <button id="guardBtn" class="text-semiblack focus:outline-none font-medium text-center inline-flex items-center">
+                                <button id="guardBtn" class="text-semiblack new-font-width focus:outline-none font-medium text-center inline-flex items-center">
                                     গার্ড ফাইল
                                     <svg id="guardArrow"
                                          class="ml-2 transition-transform duration-300"
