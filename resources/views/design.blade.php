@@ -378,16 +378,31 @@
             const engMonth = date.getMonth();
             const engDay = date.getDate();
 
-            const banglaYear = engMonth < 3 || (engMonth === 3 && engDay < 14)
-                ? engYear - 594
-                : engYear - 593;
+            let banglaYear =
+                engMonth < 3 || (engMonth === 3 && engDay < 14)
+                    ? engYear - 594
+                    : engYear - 593;
 
-            const banglaMonthDays = [31,31,31,31,31,30,30,30,30,30,30,30];
+            const banglaMonthDays = [
+                31, // বৈশাখ
+                31, // জ্যৈষ্ঠ
+                31, // আষাঢ়
+                31, // শ্রাবণ
+                31, // ভাদ্র
+                30, // আশ্বিন
+                30, // কার্তিক
+                30, // অগ্রহায়ণ
+                30, // পৌষ
+                30, // মাঘ
+                30, // ফাল্গুন
+                30  // চৈত্র
+            ];
+
             let banglaMonth = 0;
             let banglaDay = 0;
 
-            const start = new Date(engYear, 3, 14); // 14 April
-            let diff = Math.floor((date - start) / (1000 * 60 * 60 * 24));
+            const start = new Date(engYear, 3, 14, 12); // April 14 (noon)
+            let diff = Math.floor((date - start) / 86400000);
 
             if (diff < 0) {
                 diff += 365;
@@ -400,6 +415,20 @@
                     break;
                 }
                 diff -= banglaMonthDays[i];
+            }
+
+            /* ---------- FINAL −1 DAY CORRECTION ---------- */
+            banglaDay--;
+
+            if (banglaDay === 0) {
+                banglaMonth--;
+
+                if (banglaMonth < 0) {
+                    banglaMonth = 11;
+                    banglaYear--;
+                }
+
+                banglaDay = banglaMonthDays[banglaMonth];
             }
 
             return `${toBanglaNumber(banglaDay)} ${banglaMonths[banglaMonth]} ${toBanglaNumber(banglaYear)}`;

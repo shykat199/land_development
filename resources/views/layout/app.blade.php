@@ -242,10 +242,28 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        // Force Bangladesh time
-        const today = new Date(
-            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
-        );
+        /* ---------- Get Today in Asia/Dhaka (SAFE) ---------- */
+        function getDhakaToday() {
+            const now = new Date();
+
+            const parts = new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Asia/Dhaka',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).formatToParts(now);
+
+            const get = t => parts.find(p => p.type === t).value;
+
+            return new Date(
+                Number(get('year')),
+                Number(get('month')) - 1,
+                Number(get('day')),
+                12
+            );
+        }
+
+        const today = getDhakaToday();
 
         /* ---------- Bangla Digits ---------- */
         const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
@@ -257,14 +275,30 @@
             'বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'
         ];
 
-        /* ---------- Bangla Months (Correct Order) ---------- */
+        /* ---------- Bangla Months (Bangla Calendar) ---------- */
         const bnMonths = [
             'বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ',
             'ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ',
             'পৌষ','মাঘ','ফাল্গুন','চৈত্র'
         ];
 
-        /* ---------- Accurate Bangla Date ---------- */
+        /* ---------- English Months (Bangla text) ---------- */
+        const bnEngMonths = [
+            'জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল',
+            'মে','জুন','জুলাই','আগস্ট',
+            'সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'
+        ];
+
+        function getEnglishBanglaDate(date) {
+            return `${toBn(date.getDate())} ${bnEngMonths[date.getMonth()]} ${toBn(date.getFullYear())}`;
+        }
+
+        /* ---------- Leap Year ---------- */
+        function isLeap(y) {
+            return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+        }
+
+        /* ---------- Bangla Date (Corrected) ---------- */
         function getBanglaDate(date) {
 
             const gY = date.getFullYear();
@@ -274,13 +308,16 @@
             let bnYear = gY - 593;
             if (gM < 4 || (gM === 4 && gD < 14)) bnYear--;
 
-            const ref = new Date(gY, 3, 14); // 14 April
+            const ref = new Date(gY, 3, 14, 12);
             let diff = Math.floor((date - ref) / 86400000);
+
             if (diff < 0) diff += isLeap(gY - 1) ? 366 : 365;
 
-            const monthDays = isLeap(gY)
-                ? [31,31,31,31,31,30,30,30,30,30,30,31]
-                : [31,31,31,31,31,30,30,30,30,30,30,30];
+            const monthDays = [
+                31,31,31,31,31,30,30,30,30,30,
+                isLeap(gY) ? 30 : 29,
+                30
+            ];
 
             let m = 0;
             while (diff >= monthDays[m]) {
@@ -288,95 +325,26 @@
                 m++;
             }
 
-            return `${toBn(diff + 1)} ${bnMonths[m]} ${toBn(bnYear)}`;
-        }
+            let banglaDay = diff;
 
-        function isLeap(y) {
-            return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
-        }
-
-        /* ---------- English Date in Bangla ---------- */
-        const englishBangla = new Intl.DateTimeFormat('bn-BD', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        }).format(today);
-
-        /* ---------- Final Output ---------- */
-        document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
-
-        document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
-
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        // Force Bangladesh time
-        const today = new Date(
-            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
-        );
-
-        /* ---------- Bangla Digits ---------- */
-        const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-        const toBn = n => n.toString().replace(/\d/g, d => bnDigits[d]);
-
-        /* ---------- Bangla Weekdays ---------- */
-        const bnWeekdays = [
-            'রবিবার','সোমবার','মঙ্গলবার',
-            'বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'
-        ];
-
-        /* ---------- Bangla Months (Correct Order) ---------- */
-        const bnMonths = [
-            'বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ',
-            'ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ',
-            'পৌষ','মাঘ','ফাল্গুন','চৈত্র'
-        ];
-
-        /* ---------- Accurate Bangla Date ---------- */
-        function getBanglaDate(date) {
-
-            const gY = date.getFullYear();
-            const gM = date.getMonth() + 1;
-            const gD = date.getDate();
-
-            let bnYear = gY - 593;
-            if (gM < 4 || (gM === 4 && gD < 14)) bnYear--;
-
-            const ref = new Date(gY, 3, 14); // 14 April
-            let diff = Math.floor((date - ref) / 86400000);
-            if (diff < 0) diff += isLeap(gY - 1) ? 366 : 365;
-
-            const monthDays = isLeap(gY)
-                ? [31,31,31,31,31,30,30,30,30,30,30,31]
-                : [31,31,31,31,31,30,30,30,30,30,30,30];
-
-            let m = 0;
-            while (diff >= monthDays[m]) {
-                diff -= monthDays[m];
-                m++;
+            if (banglaDay === 0) {
+                m--;
+                if (m < 0) {
+                    m = 11;
+                    bnYear--;
+                }
+                banglaDay = monthDays[m];
             }
 
-            return `${toBn(diff + 1)} ${bnMonths[m]} ${toBn(bnYear)}`;
+            return `${toBn(banglaDay)} ${bnMonths[m]} ${toBn(bnYear)}`;
         }
-
-        function isLeap(y) {
-            return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
-        }
-
-        /* ---------- English Date in Bangla ---------- */
-        const englishBangla = new Intl.DateTimeFormat('bn-BD', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        }).format(today);
 
         /* ---------- Final Output ---------- */
-        document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        const finalDate =
+            `${bnWeekdays[today.getDay()]} ${getBanglaDate(today)} ${getEnglishBanglaDate(today)}`;
 
-        document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        document.getElementById('todayDate').innerText = finalDate;
+        document.getElementById('todayCurrentDate').innerText = finalDate;
 
     });
 </script>
