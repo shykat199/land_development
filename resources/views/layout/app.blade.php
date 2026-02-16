@@ -82,6 +82,15 @@
     <meta name="next-size-adjust"/>
     <script src="{{asset('assets/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js')}}" noModule=""
             type="846ea41a744d4e90b0f707e5-text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /*body {*/
+        /*    font-family: 'Noto Sans Bengali', 'Kalpurush', Arial, sans-serif !important;*/
+        /*}*/
+
+    </style>
+
 </head>
 <body class="__className_850483">
 <style>
@@ -312,7 +321,7 @@
         /* ---------- Final Output ---------- */
         // document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
-        document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        // document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
     });
 </script>
@@ -383,7 +392,51 @@
         /* ---------- Final Output ---------- */
         // document.getElementById('todayDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
 
-        document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+        // document.getElementById('todayCurrentDate').innerText = `${bnWeekdays[today.getDay()]}, ${getBanglaDate(today)}, ${englishBangla}`;
+
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.querySelector(".mobile-menu-button");
+        const mobileMenu = document.querySelector(".mobile-menu");
+
+        menuButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const submenuButtons = document.querySelectorAll(".submenu-toggle");
+
+        submenuButtons.forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const submenu = this.nextElementSibling;
+
+                // Close other open submenus
+                document.querySelectorAll(".submenu-toggle + div").forEach(menu => {
+                    if (menu !== submenu) {
+                        menu.classList.add("hidden");
+                    }
+                });
+
+                // Toggle current submenu
+                submenu.classList.toggle("hidden");
+            });
+        });
 
     });
 </script>
