@@ -2,11 +2,14 @@
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=utf-8"/><!-- /Added by HTTrack -->
 <head>
+{{--    https://landtax.prantosaha.com/fonts/7935f04143b7b6d6-s.woff2--}}
+{{--    https://landtax.prantosaha.com/fonts/7935f04143b7b6d6-s.woff2--}}
     <meta charSet="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="preload" href="{{asset('assets/_next/static/media/2ff41235783e9f59-s.p.woff2')}}" as="font" crossorigin=""
-          type="font/woff2"/>
-    <link rel="preload" href="{{asset('assets/_next/static/media/bafa4140c8699f55-s.p.ttf')}}" as="font" crossorigin=""
+    <link rel="preload" href="{{asset('fonts/7935f04143b7b6d6-s (1).woff2')}}" as="font" crossorigin="" type="font/woff2"/>
+    <link rel="preload" href="{{asset('fonts/Boishkhi.ttf')}}" as="font" crossorigin="" type="font/woff2"/>
+    <link rel="preload" href="{{asset('fonts/kalpurush-kalpurush.woff')}}" as="font" crossorigin="" type="font/woff2"/>
+    <link rel="preload" href="{{asset('fonts/bafa4140c8699f55-s.p.ttf')}}" as="font" crossorigin=""
           type="font/ttf"/>
     <link rel="preload" as="image"
           imageSrcSet="/_next/image?url=%2Fassets%2Fimages%2Fldtax_logo.webp&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fassets%2Fimages%2Fldtax_logo.webp&amp;w=2048&amp;q=75 2x"
@@ -154,10 +157,6 @@
         100% {
             transform: rotate(360deg)
         }
-    }
-
-    .new-font-width{
-        font-weight: 550 !important;
     }
 </style>
 @stack('custom.style')
